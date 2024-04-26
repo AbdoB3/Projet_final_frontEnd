@@ -32,8 +32,8 @@ const Footer = () => {
               <h2 className="inline-block text-2xl pb-4 mb-4 border-b-4 border-blue-600">Pages</h2>
             </div>
             <ul className="leading-8">
-              <li><a href="#" className="hover:text-blue-400">Home</a></li>
-              <li><a href="#" className="hover:text-blue-400">About</a></li>
+              <li><a href="#" className="hover:text-blue-400">Home</a ></li>
+              <li><a href="#aobut" className="hover:text-blue-400">About</a ></li>
               <li><a href="#" className="hover:text-blue-400">Services</a></li>
               <li><a href="#" className="hover:text-blue-400">Contact</a></li>
             </ul>
