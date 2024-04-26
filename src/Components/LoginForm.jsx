@@ -1,55 +1,55 @@
 import React from 'react';
+import  Image from '../assets/doctorslogin.jpg';
+
 
 function LoginForm() {
   return (
-    <section className="bg-gray-100 min-h-screen flex box-border justify-center items-center">
-    <div className="bg-white rounded-2xl flex max-w-3xl p-5 items-center">
-        <div className="md:w-1/2 px-8">
-            <h2 className="font-bold text-3xl text-[#002D74]">Login</h2>
-            <p className="text-sm mt-4 text-[#002D74]">If you already a member, easily log in now.</p>
-
-            <form action="" className="flex flex-col gap-4">
-                <input className="p-2 mt-8 rounded-xl border" type="email" name="email" placeholder="Email" />
-                <div className="relative">
-                    <input className="p-2 rounded-xl border w-full" type="password" name="password" id="password" placeholder="Password" />
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" id="togglePassword" className="bi bi-eye absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer z-20 opacity-100" viewBox="0 0 16 16">
-                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"></path>
-                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"></path>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-eye-slash-fill absolute top-1/2 right-3 -z-1 -translate-y-1/2 cursor-pointer hidden" id="mama" viewBox="0 0 16 16">
-                        <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"></path>
-                        <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"></path>
+<div className="py-16">
+    <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+        <div className="hidden lg:block lg:w-1/2 bg-cover" style={{backgroundImage: "url('https://unsplash.com/fr/photos/personne-assise-tout-en-utilisant-un-ordinateur-portable-et-un-stethoscope-vert-pres-NFvdKIhxYlU')"}}></div>
+        <div className="w-full p-8 lg:w-1/2">
+            <h2 className="text-2xl font-semibold text-gray-700 text-center">SIgn In </h2>
+        
+            <a href="#" className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
+                <div className="px-4 py-3">
+                    <svg className="h-6 w-6" viewBox="0 0 40 40">
+                        <path d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z" fill="#FFC107"/>
+                        <path d="M5.25497 12.2425L10.7308 16.2583C12.2125 12.59 15.8008 9.99999 20 9.99999C22.5491 9.99999 24.8683 10.9617 26.6341 12.5325L31.3483 7.81833C28.3716 5.04416 24.39 3.33333 20 3.33333C13.5983 3.33333 8.04663 6.94749 5.25497 12.2425Z" fill="#FF3D00"/>
+                        <path d="M20 36.6667C24.305 36.6667 28.2167 35.0192 31.1742 32.34L26.0159 27.975C24.3425 29.2425 22.2625 30 20 30C15.665 30 11.9842 27.2359 10.5975 23.3784L5.16254 27.5659C7.92087 32.9634 13.5225 36.6667 20 36.6667Z" fill="#4CAF50"/>
+                        <path d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.7592 25.1975 27.56 26.805 26.0133 27.9758C26.0142 27.975 26.015 27.975 26.0158 27.9742L31.1742 32.3392C30.8092 32.6708 36.6667 28.3333 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z" fill="#1976D2"/>
                     </svg>
                 </div>
-                <button className="bg-[#002D74] text-white py-2 rounded-xl hover:scale-105 duration-300 hover:bg-[#206ab1] font-medium" type="submit">Login</button>
-            </form>
-            <div className="mt-6  items-center text-gray-100">
-                <hr className="border-gray-300" />
-                <p className="text-center text-sm">OR</p>
-                <hr className="border-gray-300" />
+                <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">Sign in with Google</h1>
+            </a>
+            <div className="mt-4 flex items-center justify-between">
+                <span className="border-b w-1/5 lg:w-1/4"></span>
+                <a href="#" className="text-xs text-center text-gray-500 uppercase">or login with email</a>
+                <span className="border-b w-1/5 lg:w-1/4"></span>
             </div>
-            <button className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 hover:bg-[#60a8bc4f] font-medium">
-                <svg className="mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="25px">
-                    <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
-                    <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path>
-                    <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path>
-                    <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
-                </svg>
-
-                Login with Google
-            </button>
-            <div className="mt-10 text-sm border-b border-gray-500 py-5 playfair tooltip">Forget password?</div>
-
-            <div className="mt-4 text-sm flex justify-between items-center container-mr">
-                <p className="mr-3 md:mr-0 ">If you don't have an account..</p>
-                <button className="hover:border register text-white bg-[#002D74] hover:border-gray-400 rounded-xl py-2 px-5 hover:scale-110 hover:bg-[#002c7424] font-semibold duration-300">Register</button>
+            <div className="mt-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
+                <input className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="email" />
             </div>
-        </div>
-        <div className="md:block hidden w-1/2">
-            <img className="rounded-2xl max-h-[1600px]" src="https://images.unsplash.com/photo-1552010099-5dc86fcfaa38?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxfHxmcmVzaHxlbnwwfDF8fHwxNzEyMTU4MDk0fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="login form image" />
+            <div className="mt-4">
+                <div className="flex justify-between">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                    <a href="#" className="text-xs text-gray-500">Forget Password?</a>
+                </div>
+                <input className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none" type="password" />
+            </div>
+            <div className="mt-8">
+                <button className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">Login</button>
+            </div>
+            <div className="mt-4 flex items-center justify-between">
+                <span className="border-b w-1/5 md:w-1/4"></span>
+                <a href="#" className="text-xs text-gray-500 uppercase">or sign up</a>
+                <span className="border-b w-1/5 md:w-1/4"></span>
+            </div>
         </div>
     </div>
-</section>
+</div>
+
+
   );
 }
 

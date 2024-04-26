@@ -24,19 +24,21 @@ export default function Navbar() {
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <div className="logo flex items-center">
                     <FontAwesomeIcon icon={faHeartbeat} className="text-3xl mr-2 text-red-500" style={{ color: ' navy' }} beat />
-                    <span className="font-bold text-2xl" style={{color :'#395886'}}>Consulta</span>
-<span className="font-bold text-2xl text-cons-light" style={{color :'#5e8cc9'}}>Med</span>
+                    <span className="font-bold text-2xl" style={{ color: '#395886' }}>Consulta</span>
+                    <span className="font-bold text-2xl text-cons-light" style={{ color: '#5e8cc9' }}>Med</span>
 
                 </div>
                 <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                     <div className="hidden md:block">
-                        <button
-                            type="button"
-                            className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300
-                             dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                        >
-                            Login
-                        </button>
+                        <Link to="/login">
+                            <button
+                                type="button"
+                                className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300
+         dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                            >
+                                Login
+                            </button>
+                        </Link>
                         <button
                             type="button"
                             className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300
@@ -50,7 +52,7 @@ export default function Navbar() {
                         className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                         aria-controls="navbar-cta"
                         aria-expanded={isNavOpen ? "true" : "false"}
-                        onClick={toggleNav} 
+                        onClick={toggleNav}
                     >
                         <span className="sr-only">Open main menu</span>
                         <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
