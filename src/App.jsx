@@ -11,10 +11,8 @@ import Contact from './Components/Contact'; // Import your Contact component
 import  Footer from './Components/Footer';
 import LoginForm from './Components/LoginForm';
 
-import Services from './Components/Services.jsx'
 import Faq from './Components/Faq.jsx'
 // import Specialists from './Components/Specialists.jsx'
-import About from './Components/About.jsx'
 
 function App(){
 	return(
@@ -46,5 +44,3 @@ function App() {
 
   );
 }
-
-export default App;
