@@ -1,16 +1,17 @@
 
-import { DatePicker } from 'antd';
+import Services from './Components/Services.jsx'
+import Faq from './Components/Faq.jsx'
+// import Specialists from './Components/Specialists.jsx'
+import About from './Components/About.jsx'
 
-function App() {
-
-  return (
-    <>
-    <DatePicker/>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-    </>
-  )
+function App(){
+	return(
+    <div>
+      <Services />
+      <Faq />
+      <About />
+    </div>
+  );
 }
 
-export default App
+export default App;
