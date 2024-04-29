@@ -1,49 +1,119 @@
-import React from 'react';
-import heroImage from '../assets/doctors.jpg'; 
+import React, { useState } from 'react';
+import Logo from '../assets/logoconsolta.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeartbeat } from '@fortawesome/free-solid-svg-icons';
 
-const Hero = () => {
+export default function Navbar() {
+    const [isNavOpen, setIsNavOpen] = useState(false);
+    const [activeLink, setActiveLink] = useState(""); 
+
+    const toggleNav = () => {
+        setIsNavOpen(!isNavOpen);
+    };
+
+    const handleSetActiveLink = (link) => {
+        setActiveLink(link);
+        // No need to track author link in this version
+    };
+
+    const scrollToSection = (sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+            handleSetActiveLink(sectionId);
+        }
+    };
+
     return (
-        <div className=" text-white text-center grid bg-cover  bg-no-repeat  "
-            style={{ backgroundImage: `url(${heroImage})`, height: '100vh' }}>
-
-            <div className="col-start-1 row-start-1 bg-gray-800 bg-opacity-70 w-full h-full"></div>
-            <div className="col-start-1 row-start-1 mx-auto my-auto  flex-col flex items-center justify-center flex">
-                <h1 className="mb-4 text-2xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
-                      Trouvez Votre Consultation  Rapidement </h1>
-                <button className="flex items-center justify-center 
-                                    px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600" >
-
-                    Trouver  un Doctor
-                    <svg className="w-5 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                </button>
-                <div className="mt-8 flex justify-center">
-
-<form class="max-w-md mx-auto">
-    <div class="relative w-full">
-        <input type="search" id="location-search"
-            class=" w-100 block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 
-border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700
-dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-            placeholder="Search for Specialte ..." required style={{ width: '300px', borderRadius: '10px' }} />
-        <button type="submit" class="absolute top-0 end-0 h-full p-2.5 text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-            </svg>
-            <span class="sr-only">Search</span>
-        </button>
-
-
-    </div>
-</form>
-
-
-</div>
-                            
+        <nav className="bg-white border-gray-200 dark:bg-gray-900 w-full sticky top-0 z-10">
+            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+                <div className="logo flex items-center">
+                    <FontAwesomeIcon icon={faHeartbeat} className="text-3xl mr-2 text-red-500" style={{ color: ' navy' }} beat />
+                    <span className="font-bold text-2xl" style={{ color: '#395886' }}>Consulta</span>
+                    <span className="font-bold text-2xl text-cons-light" style={{ color: '#5e8cc9' }}>Med</span>
+                </div>
+                <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                    <div className="hidden md:block">
+                        <button
+                            type="button"
+                            className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300
+         dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                            onClick={() => scrollToSection("login")}
+                        >
+                            Login
+                        </button>
+                        <button
+                            type="button"
+                            className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300
+                            dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                            onClick={() => scrollToSection("doctors")}
+                        >
+                            Vous Etes Doctors ?
+                        </button>
+                    </div>
+                    <button
+                        type="button"
+                        className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                        aria-controls="navbar-cta"
+                        aria-expanded={isNavOpen ? "true" : "false"}
+                        onClick={toggleNav}
+                    >
+                        <span className="sr-only">Open main menu</span>
+                        <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
+                        </svg>
+                    </button>
+                </div>
+                <div className={`w-full md:flex md:w-auto ${isNavOpen ? 'block' : 'hidden'}`} id="navbar-default">
+                    <ul className="font-medium flex flex-col md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 
+                    md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                        <li>
+                            <button
+                                type="button"
+                                className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent 
+                                md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 
+                                dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent 
+                                ${activeLink === "home" ? "text-blue-700" : "text-gray-900"}`}
+                                onClick={() => scrollToSection("home")}
+                            >
+                                Home
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                type="button"
+                                className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 
+                                md:hover:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 dark:hover:bg-gray-700 
+                                dark:hover:text-white md:dark:hover:bg-transparent ${activeLink === "about" ? "text-blue-700" : "text-gray-900"}`}
+                                onClick={() => scrollToSection("about")}
+                            >
+                                About
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                type="button"
+                                className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${activeLink === "services" ? "text-blue-700" : "text-gray-900"}`}
+                                onClick={() => scrollToSection("services")}
+                            >
+                                Services
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                type="button"
+                                className={`block py-2 px-3 rounded hover:bg-gray-100
+                                 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 
+                                 md:p-0 dark:text-white md:dark:text-blue-500 dark:hover:bg-gray-700
+                                  dark:hover:text-white md:dark:hover:bg-transparent ${activeLink === "contact" ? "text-blue-700" : "text-gray-900"}`}
+                                onClick={() => scrollToSection("contact")}
+                            >
+                                Contact
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
+        </nav>
     );
 }
-
-export default Hero;

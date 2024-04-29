@@ -6,9 +6,12 @@ import Workprocess from './Hiw';
 import About from './About';
 import Services from './Services';
 import Contact from './Contact';
+import Navbar from './Navbar';
+import Footer from './Footer';
 export default function Home() {
   return (
-    <div>
+    <div id='home'>
+        <Navbar />
       <Hero/>
       <About/>
       <Services/>
@@ -17,7 +20,7 @@ export default function Home() {
 
       <Raiting/>
       <Contact/>
-
+      <Footer />
     </div>
   )
 }

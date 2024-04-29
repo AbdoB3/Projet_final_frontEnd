@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Logo from '../assets/logoconsolta.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeartbeat } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
     const [isNavOpen, setIsNavOpen] = useState(false);
@@ -34,14 +35,15 @@ export default function Navbar() {
                 </div>
                 <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                     <div className="hidden md:block">
-                        <button
-                            type="button"
-                            className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300
-         dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                            onClick={() => scrollToSection("login")}
-                        >
-                            Login
-                        </button>
+                    <Link to="/login">
+      <button
+        type="button"
+        className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300
+        dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+      >
+        Login
+      </button>
+    </Link>
                         <button
                             type="button"
                             className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300
@@ -111,6 +113,7 @@ export default function Navbar() {
                                 Contact
                             </button>
                         </li>
+                      
                     </ul>
                 </div>
             </div>
