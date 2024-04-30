@@ -11,16 +11,14 @@ import Footer from './Footer';
 export default function Home() {
   return (
     <div id='home'>
-        <Navbar />
+        <Navbar /> 
       <Hero/>
-      <About/>
+       <About/>
       <Services/>
       <Faq/>
-
-
       <Raiting/>
       <Contact/>
-      <Footer />
+      <Footer /> 
     </div>
   )
 }

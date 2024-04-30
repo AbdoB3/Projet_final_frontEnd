@@ -2,6 +2,12 @@
 /* style.css */
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"); /* Add this line to import Font Awesome */
+/* App.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+*{
+  font-family: 'Poppins';
+}
 
 /* Define styles for the login component */
 .login-container {
@@ -253,3 +259,8 @@
   color: #3c97bf;
   text-decoration: none;
 }
+
+
+
+
+

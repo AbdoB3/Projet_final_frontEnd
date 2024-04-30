@@ -20,7 +20,8 @@ export default function Login() {
       <div className="App ">
       
         <div className={containerClass} id="container">
-          <SignUpForm />
+        <SignUpForm />
+
           <SignInForm />
           <div className="overlay-container">
             <div className="overlay">
