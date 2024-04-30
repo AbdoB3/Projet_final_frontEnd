@@ -1,30 +1,19 @@
-import React from 'react';
-import Hero from './Components/Hero';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'; // Import necessary components from react-router-dom
+
+
+import { BrowserRouter, Routes, Route} from 'react-router-dom'; // Import necessary components from react-router-dom
 
 import Navbar from './Components/Navbar'; // Import your Navbar component
 import Home from './Components/Home'; // Import your Home component
-import About from './Components/About'; // Import your About component
-import Services from './Components/Services'; // Import your Services component
-
-import Contact from './Components/Contact'; // Import your Contact component
+import Contact from './Components/Contact';
 import  Footer from './Components/Footer';
-import LoginForm from './Components/LoginForm';
 
-import Faq from './Components/Faq.jsx'
-// import Specialists from './Components/Specialists.jsx'
+import Services from './Components/Services.jsx';
+import About from './Components/About.jsx';
 
-function App(){
-	return(
-    <div>
-      <Services />
-      <Faq />
-      <About />
-    </div>
-  );
-}
+import Faq from './Components/Faq.jsx';
 
-export default App;
+import Specialists from './Components/Specialists.jsx'
+import Doctorpage from '/Components/Doctorpage.jsx'
 
 function App() {
   return (
@@ -36,7 +25,12 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/doctors" element={<Doctorpage />} />
         </Routes> 
+        <About/>
+        <Services/>
+        <Specialists />
+        <Faq/>
         <Footer/>
       </div>
      </BrowserRouter>
@@ -44,3 +38,5 @@ function App() {
 
   );
 }
+
+export default App;

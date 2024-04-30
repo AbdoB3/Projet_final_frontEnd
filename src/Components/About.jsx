@@ -1,7 +1,7 @@
 const About = () => {
 	return (
 		
-			<div className="mx-auto h-screen bg-white">
+			<div className="mx-auto bg-white">
             {/* <h2 className="text-4xl md:text-6xl font-bold mb-4 p-5 text-center">About us</h2> */}
 
 					{/* First Section */}
