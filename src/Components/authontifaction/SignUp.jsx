@@ -6,7 +6,6 @@ function SignUpForm() {
     email: "",
     password: ""
   });
-
   const handleChange = evt => {
     const value = evt.target.value;
     setState({
@@ -20,7 +19,7 @@ function SignUpForm() {
 
     const { name, email, password } = state;
     alert(
-      `Vous vous inscrivez avec le nom : ${name}, l'email : ${email} et le mot de passe : ${password}`
+      `You are sign up with name: ${name} email: ${email} and password: ${password}`
     );
 
     for (const key in state) {
@@ -32,9 +31,9 @@ function SignUpForm() {
   };
 
   return (
-    <div className="form-container sign-up-container">
+    <div className="form-container sign-up-container " >
       <form onSubmit={handleOnSubmit}>
-        <h1>Créer un compte</h1>
+        <h1>Create Account</h1>
         <div className="social-container">
           <a href="#" className="social">
             <i className="fab fa-facebook-f" />
@@ -42,14 +41,17 @@ function SignUpForm() {
           <a href="#" className="social">
             <i className="fab fa-google-plus-g" />
           </a>
+          <a href="#" className="social">
+            <i className="fab fa-linkedin-in" />
+          </a>
         </div>
-        <span>ou utilisez votre email pour vous inscrire</span>
+        <span>or use your email for registration</span>
         <input
           type="text"
           name="name"
           value={state.name}
           onChange={handleChange}
-          placeholder="Nom"
+          placeholder="Name"
         />
         <input
           type="email"
@@ -63,9 +65,9 @@ function SignUpForm() {
           name="password"
           value={state.password}
           onChange={handleChange}
-          placeholder="Mot de passe"
+          placeholder="Password"
         />
-        <button>S'inscrire</button>
+        <button>Sign Up</button>
       </form>
     </div>
   );
