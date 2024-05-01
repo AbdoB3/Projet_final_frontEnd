@@ -13,7 +13,7 @@ import About from './Components/About.jsx';
 import Faq from './Components/Faq.jsx';
 
 import Specialists from './Components/Specialists.jsx'
-import Doctorpage from '/Components/Doctorpage.jsx'
+import Doctorpage from './Components/Doctorpage.jsx'
 
 function App() {
   return (
