@@ -4,6 +4,7 @@ import Navbar from './Components/Navbar';
 import Home from './Components/Home';
 import Footer from './Components/Footer';
 import Login from './Components/authontifaction/Login';
+import Workprocess from './Components/Registre';
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          {/* Add more routes here as needed */}
+
+          <Route path="/registre" element={<Workprocess/>} />
+          
         </Routes>
  
       </div>

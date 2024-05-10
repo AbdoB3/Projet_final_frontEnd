@@ -44,6 +44,7 @@ export default function Navbar() {
                                 Login
                             </button>
                         </Link>
+                        < Link to="/registre" >
                         <button
                             type="button"
                             className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300
@@ -52,6 +53,7 @@ export default function Navbar() {
                         >
                             Vous Etes Doctors ?
                         </button>
+                        </Link>
                     </div>
                     <button
                         type="button"
@@ -126,6 +128,7 @@ export default function Navbar() {
                             </Link>
                         </li>
                         <li>
+                        < Link to="/registre" >
                         <button
                           type="button"
                           className=" md:hidden text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300
@@ -133,6 +136,8 @@ export default function Navbar() {
                       >
                             Vous Etes Doctors ?
                         </button>
+
+                        </Link>
                         </li>
 
 
