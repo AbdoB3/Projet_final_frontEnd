@@ -1,35 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from 'axios';
 
-function SignInForm() {
-  const [state, setState] = React.useState({
+function SignInForm({ handleLogin }) { // Receive handleLogin as prop
+
+  const [state, setState] = useState({
     email: "",
     password: ""
   });
 
   const handleChange = evt => {
-    const value = evt.target.value;
+    const { name, value } = evt.target;
     setState({
       ...state,
-      [evt.target.name]: value
+      [name]: value
     });
   };
 
-  const handleOnSubmit = evt => {
+  const handleOnSubmit = async evt => {
     evt.preventDefault();
 
     const { email, password } = state;
-    alert(`Vous vous connectez avec l'email : ${email} et le mot de passe : ${password}`);
-
-    for (const key in state) {
+    
+    try {
+      await handleLogin(email, password);
+      // Optionally, you can clear form inputs here
       setState({
-        ...state,
-        [key]: ""
+        email: "",
+        password: ""
       });
+    } catch (error) {
+      console.error('Login error:', error);
+      // Handle login error (display error message, etc.)
     }
   };
 
   return (
-    <div className="form-container sign-in-container" >
+    <div className="form-container sign-in-container">
       <form onSubmit={handleOnSubmit}>
         <h1>Connexion</h1>
         <div className="social-container">
@@ -56,7 +62,7 @@ function SignInForm() {
           onChange={handleChange}
         />
         <a href="#">Mot de passe oublié ?</a>
-        <button>Se connecter</button>
+        <button type="submit">Se connecter</button>
       </form>
     </div>
   );

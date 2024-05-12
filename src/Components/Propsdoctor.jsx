@@ -10,6 +10,12 @@ export default function Propsdoctor({ firstname, lastname, speciality, sexe, fee
   alt="Doctor"
   style={{width:'400px' ,height :'400px'}}
 />
+{/* <img
+  className="rounded-lg sm:m-h-64 md:h-64 w-full"
+  src={imageUrl} // Use the imageUrl prop here
+  alt={`${firstname} ${lastname}`} // Provide alt text for accessibility
+  style={{ width: '400px', height: '400px' }}
+/> */}
 
           <a href="#!">
             <div className="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,98%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"></div>

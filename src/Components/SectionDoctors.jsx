@@ -6,13 +6,13 @@ export default function SectionDoctors() {
     const [doctors, setDoctors] = useState([]);
 
     useEffect(() => {
-        fetchDoctorsBySpecialty(); 
+        fetchDoctorsBySpecialty();
     }, []);
 
     const fetchDoctorsBySpecialty = async () => {
         try {
-            const response = await axios.get(`http://localhost:3002/doctors?limit=3`);
-            const doctorsData = response.data.doctors.slice(0, 3);
+            const response = await axios.get(`http://localhost:3002/doctors?limit=4`);
+            const doctorsData = response.data.doctors.slice(0, 4);
             setDoctors(doctorsData);
         } catch (error) {
             console.error('Error fetching doctors:', error);
@@ -31,6 +31,7 @@ export default function SectionDoctors() {
                             speciality={doctor.speciality}
                             sexe={doctor.sexe}
                             feePer={doctor.feePer}
+                            // imageUrl={doctor.imageUrl}
                         />
                     </div>
                 ))}
