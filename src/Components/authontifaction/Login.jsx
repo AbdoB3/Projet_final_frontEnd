@@ -13,8 +13,10 @@ export default function Login() {
     try {
       const response = await axios.post('http://localhost:3002/patient/login', { email, password });
       const data = response.data;
-      console.clear(); // Clear console
+  
       console.log('Login successful'); // White console log
+          // Store token in local storage
+    localStorage.setItem('token', data.token);
       // Optionally, you can redirect to a new page or perform other actions upon successful login
     } catch (error) {
       console.error('Login error:', error);
