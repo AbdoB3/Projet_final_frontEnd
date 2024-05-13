@@ -1,12 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import Logo from '../assets/logoconsolta.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeartbeat } from '@fortawesome/free-solid-svg-icons';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+
     const [isNavOpen, setIsNavOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
     const [activeLink, setActiveLink] = useState("");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        setIsLoggedIn(!!token);
+    }, []);
+
+    const handleLogout = () => {
+        // Clear token from local storage
+        localStorage.removeItem('token');
+        // Navigate to login page
+        navigate('/login');
+        // Update login status
+        setIsLoggedIn(false);
+    };
 
     const toggleNav = () => {
         setIsNavOpen(!isNavOpen);
@@ -25,6 +42,7 @@ export default function Navbar() {
         }
     };
 
+
     return (
         <nav className="bg-white border-gray-200 dark:bg-gray-900 w-full sticky top-0 z-10">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -34,6 +52,15 @@ export default function Navbar() {
                     <span className="font-bold text-2xl text-cons-light" style={{ color: '#5e8cc9' }}>Med</span>
                 </div>
                 <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                {isLoggedIn ? ( <button
+                                type="button"
+                                className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </button>
+                        ) : (
+                            <>
                     <div className="hidden md:block">
                         <Link to="/login">
                             <button
@@ -44,6 +71,7 @@ export default function Navbar() {
                                 Login
                             </button>
                         </Link>
+                        < Link to="/registre" >
                         <button
                             type="button"
                             className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300
@@ -52,7 +80,10 @@ export default function Navbar() {
                         >
                             Vous Etes Doctors ?
                         </button>
+                        </Link>
                     </div>
+                    </>
+                        )}
                     <button
                         type="button"
                         className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -126,6 +157,7 @@ export default function Navbar() {
                             </Link>
                         </li>
                         <li>
+                        < Link to="/registre" >
                         <button
                           type="button"
                           className=" md:hidden text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300
@@ -133,6 +165,8 @@ export default function Navbar() {
                       >
                             Vous Etes Doctors ?
                         </button>
+
+                        </Link>
                         </li>
 
 
