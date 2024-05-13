@@ -4,22 +4,42 @@ import SignInForm from "./SignIn";
 import SignUpForm from "./SignUp";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeartbeat } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [type, setType] = useState("signIn");
+  const navigate = useNavigate();
+  const handleLogin = async (email, password) => {
+    try {
+      const response = await axios.post('http://localhost:3002/patient/login', { email, password });
+      const data = response.data;
+  
+      console.log('Login successful'); // White console log
+          // Store token in local storage
+    localStorage.setItem('token', data.token);
+    navigate('/');
+      // Optionally, you can redirect to a new page or perform other actions upon successful login
+    } catch (error) {
+      console.error('Login error:', error);
+      // Handle login error (display error message, etc.)
+    }
+  };
+
   const handleOnClick = text => {
     if (text !== type) {
       setType(text);
     }
   };
-  const containerClass =
-    "container " + (type === "signUp" ? "right-panel-active" : "");
+
+  const containerClass = "container " + (type === "signUp" ? "right-panel-active" : "");
+
   return (
     <div className="login-container">
       <div className="App">
         <div id="container" className={containerClass}>
           <SignUpForm />
-          <SignInForm />
+          <SignInForm handleLogin={handleLogin} /> {/* Pass handleLogin function as prop */}
           <div className="overlay-container">
             <div className="overlay">
               <div className="overlay-panel overlay-left">

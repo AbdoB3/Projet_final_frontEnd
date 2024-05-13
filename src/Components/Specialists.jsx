@@ -1,7 +1,7 @@
 import React from 'react';
 
 const DoctorCard = ({ name, specialization, imageSrc }) => (
-  <div className="flex-shrink-0 m-6 relative overflow-hidden bg-gray-300 rounded-3xl max-w-xs shadow-lg group mx-2 my-4">
+  <div className="flex-shrink-0 m-6 relative overflow-hidden bg-gray-300 rounded-3xl max-w-xs shadow-lg group mx-1 my-4">
     <svg className="absolute bottom-0 left-0 mb-8 scale-150 group-hover:scale-[1.65] transition-transform" viewBox="0 0 375 283" fill="none" style={{ opacity: '0.1' }}>
       <rect x="159.52" y="175" width="152" height="152" rx="8" transform="rotate(-45 159.52 175)" fill="white" />
       <rect y="107.48" width="152" height="152" rx="8" transform="rotate(-45 0 107.48)" fill="white" />
@@ -30,7 +30,7 @@ const MyComponent = () => {
   return (
     <div className="p-10 bg-indigo-100">
       <h2 className="text-3xl font-bold mb-6 p-4 text-center">Meet Our Specialists</h2>
-      <div className="flex justify-center">
+      <div className="flex flex-wrap justify-center"> {/* Updated to flex-wrap */}
         {doctors.map((doctor, index) => (
           <DoctorCard key={index} {...doctor} />
         ))}
