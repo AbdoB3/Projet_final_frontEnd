@@ -4,6 +4,34 @@ import Navbar from './Navbar';
 import Calendrier from './Calendrier'
 import Footer from './Footer';
 
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { setHours, setMinutes } from 'date-fns';
+
+
+const YourComponent = () => {
+    const [startDate, setStartDate] = useState(
+      setHours(setMinutes(new Date(), 30), 16)
+    );
+  
+    return (
+      <DatePicker
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+        showTimeSelect
+        showTimeSelectOnly // This ensures only the time picker is displayed
+        timeFormat="HH" // Display hours only
+        injectTimes={[
+          setHours(setMinutes(setSeconds(new Date(), 10), 1), 0),
+          setHours(setMinutes(new Date(), 5), 12),
+          setHours(setMinutes(new Date(), 59), 23),
+        ]}
+        dateFormat="h aa" // Removed "mm" for minutes and "MMMM d, yyyy" for date
+      />
+    );
+  };
+  
+
 const MyComponent = () => {
     const [activeButton, setActiveButton] = useState(null);
 
@@ -119,6 +147,7 @@ const App = () => {
             <Navbar />
        
             <MyComponent />
+            <YourComponent/>
             <Footer />
         </div>
     );

@@ -6,7 +6,7 @@ import Footer from './Components/Footer';
 import Login from './Components/authontifaction/Login';
 import Doctorspage from './Components/Doctorspage'
 import Doctorpage from './Components/Doctorpage'
-
+import Stripe from './Components/Stripe'
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/doctors" element={<Doctorspage/>} />
           <Route path="/doctor" element={<Doctorpage/>} />
+          <Route path="/stripe" element={<Stripe/>} />
           {/* Add more routes here as needed */}
         </Routes>
  
