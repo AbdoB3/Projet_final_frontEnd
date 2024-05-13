@@ -5,6 +5,7 @@ import Faq from './Faq';
 
 import About from './About';
 import Services from './Services';
+import Specialists from './Specialists';
 import Contact from './Contact';
 import Navbar from './Navbar';
 import Footer from './Footer';

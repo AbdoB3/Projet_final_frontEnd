@@ -4,7 +4,9 @@ import Navbar from './Components/Navbar';
 import Home from './Components/Home';
 import Footer from './Components/Footer';
 import Login from './Components/authontifaction/Login';
-import Workprocess from './Components/Registre';
+import Doctorspage from './Components/Doctorspage'
+import Doctorpage from './Components/Doctorpage'
+import Stripe from './Components/Stripe'
 
 function App() {
   return (
@@ -14,9 +16,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-
-          <Route path="/registre" element={<Workprocess/>} />
-          
+          <Route path="/doctors" element={<Doctorspage/>} />
+          <Route path="/doctor" element={<Doctorpage/>} />
+          <Route path="/stripe" element={<Stripe/>} />
+          {/* Add more routes here as needed */}
         </Routes>
  
       </div>
