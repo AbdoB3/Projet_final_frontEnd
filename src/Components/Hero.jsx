@@ -1,13 +1,15 @@
-// Hero.js
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import heroImage from '..//assets/doctors.jpg';
 
 const Hero = ({ handleSearchSubmit, handleSearchInputChange }) => {
     const [searchTerm, setSearchTerm] = useState('');
+    const sectionDoctorsRef = useRef(null);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         handleSearchSubmit(searchTerm);
+        // Scroll to the SectionDoctors component after search
+        sectionDoctorsRef.current.scrollIntoView({ behavior: 'smooth' });
     };
 
     const handleChange = (event) => {
@@ -16,7 +18,9 @@ const Hero = ({ handleSearchSubmit, handleSearchInputChange }) => {
     };
 
     return (
-        <div className="text-white text-center grid bg-cover bg-no-repeat" style={{ backgroundImage: `url(${heroImage})`, height: '110vh', width: '100%', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <>
+        <div className="text-white text-center grid bg-cover bg-no-repeat" 
+        style={{ backgroundImage: `url(${heroImage})`, height: '110vh', width: '100%', backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <div className="col-start-1 row-start-1 bg-gray-800 bg-opacity-70 w-full h-full"></div>
             <div className="col-start-1 row-start-1 mx-auto my-auto flex-col flex items-center justify-center flex">
                 <h1 className="mb-4 text-2xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
@@ -66,6 +70,8 @@ const Hero = ({ handleSearchSubmit, handleSearchInputChange }) => {
                 </div>
             </div>
         </div>
+        <div ref={sectionDoctorsRef}></div>
+        </>
     );
 };
 

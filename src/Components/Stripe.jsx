@@ -1,48 +1,60 @@
-import React, { useEffect, useRef } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
+import { useStripe, useElements } from '@stripe/react-stripe-js';
 
-function PaymentComponent() {
-  const paymentElementRef = useRef(null);
+const PaymentForm = () => {
+  const stripe = useStripe();
+  const elements = useElements();
 
-  useEffect(() => {
-    let stripe;
-    let paymentElement;
+  // Replace with your actual client secret from Stripe
+  const clientSecret = 'your_client_secret';
 
-    const initializeStripe = async () => {
-      // Replace 'pk_test_TYooMQauvdEDq54NiTphI7jx' with your actual publishable key
-      stripe = await loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+  const appearance = { /* appearance */ }; // Customize appearance (optional)
+  const options = {
+    layout: 'tabs', // Switch between "tabs" and "modal" layouts
+    defaultCollapsed: false, // Keep payment element initially expanded
+  };
 
-      // Define appearance and options objects
-      const appearance = { /* appearance */ };
-      const options = { /* options */ };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-      // Create elements and mount payment element
-      const elements = stripe.elements();
-      paymentElement = elements.create('payment', options);
-      paymentElement.mount(paymentElementRef.current);
-    };
+    if (!stripe || !elements) {
+      // Handle errors if Stripe or Elements are not loaded
+      return;
+    }
 
-    initializeStripe();
+    const result = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(elements.CardElement),
+      },
+    });
 
-    // Cleanup function
-    return () => {
-      if (paymentElement) {
-        paymentElement.destroy();
-      }
-      if (stripe) {
-        stripe = null;
-      }
-    };
-  }, []); // Empty dependency array ensures the effect runs only once after mount
+    if (result.error) {
+      // Handle payment errors
+      console.error('Payment error:', result.error.message);
+    } else {
+      // Handle successful payment
+      console.log('Payment successful:', result.paymentIntent);
+    }
+  };
 
-  return <div ref={paymentElementRef}></div>;
-}
+  return (
+    <form onSubmit={handleSubmit}>
+      <Elements stripe={stripe} elements={elements}>
+        <CardElement options={options} />
+      </Elements>
+      <button type="submit" disabled={!stripe}>
+        Pay
+      </button>
+    </form>
+  );
+};
+
+
 
 const App = () => {
   return (
     <div>
       <h1>Yooo</h1>
-      <PaymentComponent/>
+      <PaymentForm />
     </div>
   );
 };
