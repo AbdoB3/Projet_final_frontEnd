@@ -1,58 +1,128 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu } from 'antd';
-import Logo from '../assets/logoconsolta.png';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { Modal } from 'antd';
+import Calendrier from './Calendrier';
+import axios from 'axios';
 
-export default function Navbar() {
-    const [isNavOpen, setIsNavOpen] = useState(false);
-    const [activeLink, setActiveLink] = useState(""); // Add state to track active link
-    const [isAuthorLink, setIsAuthorLink] = useState(false); // Add state to track author link
+const Doctorpage = () => {
+  const { id } = useParams();
+  const [doctor, setDoctor] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // State to manage loading
+  const [error, setError] = useState(null); // State to manage error
 
-    const toggleNav = () => {
-        setIsNavOpen(!isNavOpen);
+  useEffect(() => {
+    const fetchDoctorDetail = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3002/doctors/${id}`);
+        setDoctor(response.data);
+      } catch (error) {
+        console.error('Error fetching doctor detail:', error);
+        setError('Error fetching doctor details'); // Set error state
+      } finally {
+        setIsLoading(false); // Set loading to false after fetch is complete
+      }
     };
 
-    const handleSetActiveLink = (link) => {
-        setActiveLink(link);
-        setIsAuthorLink(link === "/author"); // Update isAuthorLink state based on the link
-    };
+    fetchDoctorDetail();
+  }, [id]);
 
-    return (
+  const [activeButton, setActiveButton] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const handleButtonClick = (buttonName) => {
+    setActiveButton(buttonName);
+  };
 
-        <nav className="bg-white border-gray-200 dark:bg-gray-900">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
-                </a>
-                <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                    <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Get started</button>
-                    <button data-collapse-toggle="navbar-cta" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">
-                        <span className="sr-only">Open main menu</span>
-                        <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
-                        </svg>
-                    </button>
-                </div>
-                <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
-                    <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                        <li>
-                            <a href="#" className="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:dark:text-blue-500" aria-current="page">Home</a>
-                        </li>
-                        <li>
-                            <a href="#" className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
-                        </li>
-                        <li>
-                            <a href="#" className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
-                        </li>
-                        <li>
-                            <a href="#" className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
-                        </li>
-                    </ul>
-                </div>
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  return (
+    <section className="py-12 sm:py-16 bg-indigo-100 dark:bg-gray-800">
+      <div className="container mx-auto px-4">
+        <h2 className="text-4xl font-bold text-gray-800 dark:text-white text-center mb-7">Meet your doctor</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="md:flex-1">
+            <div className="flex items-center justify-center mb-4">
+              <div className="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
+                <img className="w-full h-full object-cover" src="https://unsplash.com/photos/701-FJcjLAQ/download?force=true&w=640" alt="Doctor Image" />
+              </div>
             </div>
-        </nav>
+            <div className="w-1/2 px-2 mx-auto">
+              <button type="button" onClick={showModal} className="w-full bg-indigo-500 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-indigo-700 dark:hover:bg-gray-700">Consult</button>
+              <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <Calendrier />
+              </Modal>
+            </div>
+          </div>
+          <div className="md:flex-1 mt-5">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                {doctor?.firstname} {doctor?.lastname}</h2>
+            <p className="text-gray-600 dark:text-gray-300 text-sm mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed ante justo. Integer euismod libero id mauris malesuada tincidunt.</p>
+            <div className="flex mb-2">
+              <div className="mr-4">
+                <span className="font-bold text-gray-700 dark:text-gray-300">Sexe:</span>
+                <span className="text-gray-600 dark:text-gray-300 ml-1">{doctor?.sexe}</span>
+              </div>
+            </div>
+            <div className="flex mb-2">
+              <div className="mr-4">
+                <span className="font-bold text-gray-700 dark:text-gray-300">Speciality:</span>
+                <span className="text-gray-600 dark:text-gray-300 ml-1">{doctor?.speciality}</span>
+              </div>
+            </div>
+            <div className="flex mb-2">
+              <div className="mr-4">
+                <span className="font-bold text-gray-700 dark:text-gray-300">Experience:</span>
+                <span className="text-gray-600 dark:text-gray-300 ml-1">{doctor?.experience}</span>
+              </div>
+            </div>
+            <div className="flex mb-2">
+              <div className="mr-4">
+                <span className="font-bold text-gray-700 dark:text-gray-300">Price:</span>
+                <span className="text-gray-600 dark:text-gray-300 ml-1">${doctor?.feePer}</span>
+              </div>
+            </div>
+            <div className="flex flex-col mb-2">
+              <span className="font-bold text-gray-700 dark:text-gray-300 mb-2">Choose your type:</span>
+              <div className="flex -mx-2">
+                <div className="w-1/2 px-2">
+                  <button className={`w-full py-2 px-4 rounded-full font-bold ${activeButton === 'video' ? 'bg-gray-900 dark:bg-gray-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-800'}`} onClick={() => handleButtonClick('video')}>
+                    Video call
+                  </button>
+                </div>
+                <div className="w-1/2 px-2">
+                  <button className={`w-full py-2 px-4 rounded-full font-bold ${activeButton === 'cabinet' ? 'bg-gray-900 dark:bg-gray-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-800'}`} onClick={() => handleButtonClick('cabinet')}>
+                    Cabinet
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="md:flex-1 ml-10 mt-10">
+            <h2 className="text-xl font-bold text-gray-800 dark:text-white">Phone number</h2>
+            <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{doctor?.phone}</p>
+            <div className="mb-4">
+              <span className="font-bold text-gray-700 dark:text-gray-300">Email:</span>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">{doctor?.email}</p>
+            </div>
+            <div className="mb-4">
+              <span className="font-bold text-gray-700 dark:text-gray-300">Address cabinet:</span>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">{doctor?.address?.city}, {doctor?.address?.state}, {doctor?.address?.country}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
-    );
-}
+export default Doctorpage;
