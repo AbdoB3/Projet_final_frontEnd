@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect  ,useRef} from 'react';
 import Hero from './Hero';
 import Rating from './Rating';
 import Faq from './Faq';
@@ -14,6 +14,7 @@ import SectionDoctors from './SectionDoctors';
 export default function Home() {
     const [searchTerm, setSearchTerm] = useState('');
     const [suggestions, setSuggestions] = useState([]);
+    const aboutRef = useRef(null);
     
     const handleSearchInputChange = (event) => {
         setSearchTerm(event.target.value);
@@ -22,7 +23,7 @@ export default function Home() {
     useEffect(() => {
         const fetchSuggestions = async () => {
             try {
-                const response = await axios.get('http://localhost:3002/speciality'); // Adjust the API endpoint as needed
+                const response = await axios.get('http://localhost:3000/speciality'); // Adjust the API endpoint as needed
                 setSuggestions(response.data);
             } catch (error) {
                 console.error('Error fetching suggestions:', error);
@@ -37,13 +38,13 @@ export default function Home() {
     };
 
     return (
-        <div id='home'>
+        <div id='/'>
             <Navbar />
             <Hero handleSearchSubmit={handleSearchSubmit}
              handleSearchInputChange={handleSearchInputChange} 
              suggestions={suggestions} />
-            <SectionDoctors searchTerm={searchTerm} /> {/* Pass searchTerm as prop */}
-            <About />
+            <SectionDoctors searchTerm={searchTerm} /> 
+            <About  aboutRef={aboutRef}/>
             <Services />
             <Faq />
             <Rating />

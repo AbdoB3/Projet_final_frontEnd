@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Propsdoctor({ id, firstname, lastname, speciality, sexe, feePer, onClick }) {
+export default function Propsdoctor({ id, firstname, lastname, speciality, description,
+  sexe, feePer, onClick }) {
   console.log('Doctor ID:', id);
   return (
     <div className="flex flex-col">

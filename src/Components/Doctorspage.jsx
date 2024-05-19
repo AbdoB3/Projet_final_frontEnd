@@ -1,181 +1,181 @@
-// import Navbar from './Navbar'
+import Navbar from './Navbar'
 
-// import React from 'react';
+import React from 'react';
 
-// const RadioButtonsGroup = () => {
-//   return (
-//     <div className="border rounded-md p-4 w-full mx-auto max-w-2xl bg-gray-100 mt-5">
-//       <h4 className="text-lg lg:text-2xl font-semibold">
-//         Gender
-//       </h4>
+const RadioButtonsGroup = () => {
+  return (
+    <div className="border rounded-md p-4 w-full mx-auto max-w-2xl bg-gray-100 mt-5">
+      <h4 className="text-lg lg:text-2xl font-semibold">
+        Gender
+      </h4>
 
-//       <div>
-//         <label className="flex bg-gray-300 text-gray-700 rounded-md px-3 py-2 my-3 hover:bg-indigo-300 cursor-pointer">
-//           <input type="radio" id="homme" name="gender" value="homme" />
-//           <i className="pl-2">Homme</i>
-//         </label>
+      <div>
+        <label className="flex bg-gray-300 text-gray-700 rounded-md px-3 py-2 my-3 hover:bg-indigo-300 cursor-pointer">
+          <input type="radio" id="homme" name="gender" value="homme" />
+          <i className="pl-2">Homme</i>
+        </label>
 
-//         <label className="flex bg-gray-300 text-gray-700 rounded-md px-3 py-2 my-3 hover:bg-indigo-300 cursor-pointer">
-//           <input type="radio" id="femme" name="gender" value="femme" />
-//           <i className="pl-2">Femme</i>
-//         </label>
-//       </div>
-//     </div>
-//   );
-// };
-// const SpecialiteButtonGroup = () => {
-//   return (
-//     <div className="w-full max-w-md mx-auto">
-//       <div className="bg-gray-100 shadow-md rounded-md p-6">
-//         <h3 className="text-lg font-bold mb-4">Specialite</h3>
-//         <div className="space-y-2">
-//           <div className="mb-2 flex items-start"> {/* Ajout de la classe 'flex items-start' pour aligner les éléments au même point de départ */}
-//             <label className="inline-flex items-center">
-//               <input
-//                 type="radio"
-//                 name="specilite"
-//                 value="cardiology"
-//                 className="form-radio text-secondary-500 h-5 w-5"
-//               />
-//               <span className="ml-2">Cardiology</span>
-//             </label>
-//           </div>
-//           <div className="mb-2 flex items-start"> {/* Ajout de la classe 'flex items-start' pour aligner les éléments au même point de départ */}
-//             <label className="inline-flex items-center">
-//               <input
-//                type="radio"
-//                name="specilite"
-//                value="dermatology"
-//                 className="form-radio text-secondary-500 h-5 w-5"
-//               />
-//               <span className="ml-2">Dermatology</span>
-//             </label>
-//           </div>
-//           <div className="mb-2 flex items-start"> {/* Ajout de la classe 'flex items-start' pour aligner les éléments au même point de départ */}
-//             <label className="inline-flex items-center">
-//               <input
-//                  type="radio"
-//                  name="specilite"
-//                  value="gastroenterology"
-//                 className="form-radio text-secondary-500 h-5 w-5"
-//               />
-//               <span className="ml-2">Gastroenterology</span>
-//             </label>
-//           </div>
-//           <div className="mb-2 flex items-start"> {/* Ajout de la classe 'flex items-start' pour aligner les éléments au même point de départ */}
-//             <label className="inline-flex items-center">
-//               <input
-//                 type="radio"
-//                 name="specilite"
-//                 value="Hematology"
-//                 className="form-radio text-secondary-500 h-5 w-5"
-//               />
-//               <span className="ml-2">Hematology</span>
-//             </label>
-//           </div>
-//           <div className="mb-2 flex items-start"> {/* Ajout de la classe 'flex items-start' pour aligner les éléments au même point de départ */}
-//             <label className="inline-flex items-center">
-//               <input
-//                  type="radio"
-//                  name="specilite"
-//                  value="dentiste"
-//                 className="form-radio text-secondary-500 h-5 w-5"
-//               />
-//               <span className="ml-2">Dentiste</span>
-//             </label>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+        <label className="flex bg-gray-300 text-gray-700 rounded-md px-3 py-2 my-3 hover:bg-indigo-300 cursor-pointer">
+          <input type="radio" id="femme" name="gender" value="femme" />
+          <i className="pl-2">Femme</i>
+        </label>
+      </div>
+    </div>
+  );
+};
+const SpecialiteButtonGroup = () => {
+  return (
+    <div className="w-full max-w-md mx-auto">
+      <div className="bg-gray-100 shadow-md rounded-md p-6">
+        <h3 className="text-lg font-bold mb-4">Specialite</h3>
+        <div className="space-y-2">
+          <div className="mb-2 flex items-start"> {/* Ajout de la classe 'flex items-start' pour aligner les éléments au même point de départ */}
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name="specilite"
+                value="cardiology"
+                className="form-radio text-secondary-500 h-5 w-5"
+              />
+              <span className="ml-2">Cardiology</span>
+            </label>
+          </div>
+          <div className="mb-2 flex items-start"> {/* Ajout de la classe 'flex items-start' pour aligner les éléments au même point de départ */}
+            <label className="inline-flex items-center">
+              <input
+               type="radio"
+               name="specilite"
+               value="dermatology"
+                className="form-radio text-secondary-500 h-5 w-5"
+              />
+              <span className="ml-2">Dermatology</span>
+            </label>
+          </div>
+          <div className="mb-2 flex items-start"> {/* Ajout de la classe 'flex items-start' pour aligner les éléments au même point de départ */}
+            <label className="inline-flex items-center">
+              <input
+                 type="radio"
+                 name="specilite"
+                 value="gastroenterology"
+                className="form-radio text-secondary-500 h-5 w-5"
+              />
+              <span className="ml-2">Gastroenterology</span>
+            </label>
+          </div>
+          <div className="mb-2 flex items-start"> {/* Ajout de la classe 'flex items-start' pour aligner les éléments au même point de départ */}
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name="specilite"
+                value="Hematology"
+                className="form-radio text-secondary-500 h-5 w-5"
+              />
+              <span className="ml-2">Hematology</span>
+            </label>
+          </div>
+          <div className="mb-2 flex items-start"> {/* Ajout de la classe 'flex items-start' pour aligner les éléments au même point de départ */}
+            <label className="inline-flex items-center">
+              <input
+                 type="radio"
+                 name="specilite"
+                 value="dentiste"
+                className="form-radio text-secondary-500 h-5 w-5"
+              />
+              <span className="ml-2">Dentiste</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-// const DoctorCard = ({ imageSrc, productName, brand }) => (
-//   <div className="w-72 mb-1 bg-gray-100 shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-//     <a href="#">
-//       <img src={imageSrc} alt="Product" className="h-80 w-72 object-cover rounded-t-xl" />
-//       <div className="px-4 py-3 w-72">
-//         <span className="text-lg font-bold text-black truncate block capitalize">{productName}</span>
-//         <p className="text-gray-400 mr-3 uppercase text-xs">{brand}</p>
-//         <div className="flex items-start">
-//           <div className="ml-auto">
-//             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-bag-plus" viewBox="0 0 16 16">
-//               <path fillRule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z" />
-//               <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
-//             </svg>
-//           </div>
-//         </div>
-//       </div>
-//     </a>
-//   </div>
-// );
+const DoctorCard = ({ imageSrc, productName, brand }) => (
+  <div className="w-72 mb-1 bg-gray-100 shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+    <a href="#">
+      <img src={imageSrc} alt="Product" className="h-80 w-72 object-cover rounded-t-xl" />
+      <div className="px-4 py-3 w-72">
+        <span className="text-lg font-bold text-black truncate block capitalize">{productName}</span>
+        <p className="text-gray-400 mr-3 uppercase text-xs">{brand}</p>
+        <div className="flex items-start">
+          <div className="ml-auto">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-bag-plus" viewBox="0 0 16 16">
+              <path fillRule="evenodd" d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z" />
+              <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+);
 
-// const DoctorGrid = () => {
-//   const products = [
-//     { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Youssef Zahir', brand: 'Dermatology' },
-//     { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'abderrahman Bihi', brand: 'Dentiste' },
-//     { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Laila Danguir', brand: 'Generlaiste' },
-//     { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Meryam', brand: 'Interniste' },
-//     { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Product 2', brand: 'Brand 2' },
-//     { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Product 3', brand: 'Brand 3' },
-//     { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Product 1', brand: 'Brand 1' },
-//     { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Product 2', brand: 'Brand 2' },
-//     { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Product 3', brand: 'Brand 3' },
-//     // Add more product objects as needed
-//   ];
+const DoctorGrid = () => {
+  const products = [
+    { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Youssef Zahir', brand: 'Dermatology' },
+    { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'abderrahman Bihi', brand: 'Dentiste' },
+    { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Laila Danguir', brand: 'Generlaiste' },
+    { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Meryam', brand: 'Interniste' },
+    { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Product 2', brand: 'Brand 2' },
+    { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Product 3', brand: 'Brand 3' },
+    { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Product 1', brand: 'Brand 1' },
+    { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Product 2', brand: 'Brand 2' },
+    { imageSrc: 'src/assets/Doctor-rafiki.png', productName: 'Product 3', brand: 'Brand 3' },
+    // Add more product objects as needed
+  ];
 
-//   return (
-//     <section id="Projects" className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
-//       {products.map((product, index) => (
-//         <DoctorCard key={index} {...product} />
-//       ))}
-//     </section>
-//   );
-// };
+  return (
+    <section id="Projects" className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+      {products.map((product, index) => (
+        <DoctorCard key={index} {...product} />
+      ))}
+    </section>
+  );
+};
 
-// const Pagination = () => {
-//   return (
-//     <div className="flex justify-center">
-//       <nav className="bg-gray-200 rounded-full px-4 py-2">
-//         <ul className="flex text-gray-600 gap-4 font-medium py-2">
-//           <li>
-//             <a href="#" className="rounded-full px-4 py-2 bg-white text-gray-600">1</a>
-//           </li>
-//           <li>
-//             <a href="#" className="rounded-full px-4 py-2 hover:bg-white hover:text-gray-600 transition duration-300 ease-in-out">2</a>
-//           </li>
-//           <li>
-//             <a href="#" className="rounded-full px-4 py-2 hover:bg-white hover:text-gray-600 transition duration-300 ease-in-out">3</a>
-//           </li>
-//           <li>
-//             <a href="#" className="rounded-full px-4 py-2 hover:bg-white hover:text-gray-600 transition duration-300 ease-in-out">4</a>
-//           </li>
-//           <li>
-//             <a href="#" className="rounded-full px-4 py-2 hover:bg-white hover:text-gray-600 transition duration-300 ease-in-out">5</a>
-//           </li>
-//         </ul>
-//       </nav>
-//     </div>
-//   );
-// };
+const Pagination = () => {
+  return (
+    <div className="flex justify-center">
+      <nav className="bg-gray-200 rounded-full px-4 py-2">
+        <ul className="flex text-gray-600 gap-4 font-medium py-2">
+          <li>
+            <a href="#" className="rounded-full px-4 py-2 bg-white text-gray-600">1</a>
+          </li>
+          <li>
+            <a href="#" className="rounded-full px-4 py-2 hover:bg-white hover:text-gray-600 transition duration-300 ease-in-out">2</a>
+          </li>
+          <li>
+            <a href="#" className="rounded-full px-4 py-2 hover:bg-white hover:text-gray-600 transition duration-300 ease-in-out">3</a>
+          </li>
+          <li>
+            <a href="#" className="rounded-full px-4 py-2 hover:bg-white hover:text-gray-600 transition duration-300 ease-in-out">4</a>
+          </li>
+          <li>
+            <a href="#" className="rounded-full px-4 py-2 hover:bg-white hover:text-gray-600 transition duration-300 ease-in-out">5</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  );
+};
 
-// const App = () => {
-//   return (
-//     <div className="bg-indigo-100">
-// 	    <Navbar/>
-//     <div className="text-center p-10">
-// 			<h2 className='font-bold text-3xl mt-5 mb-5'>Meet our Doctors</h2>
-//       <div className="flex">
-//         <div className="mr-10 mt-20">
-//           <SpecialiteButtonGroup />
-//           <RadioButtonsGroup />
-//         </div>
-//         <DoctorGrid />
-//       </div>
-//       <Pagination />
-//     </div>
-//     </div>
-//   );
-// };
+const App = () => {
+  return (
+    <div className="bg-indigo-100">
+	    <Navbar/>
+    <div className="text-center p-10">
+			<h2 className='font-bold text-3xl mt-5 mb-5'>Meet our Doctors</h2>
+      <div className="flex">
+        <div className="mr-10 mt-20">
+          <SpecialiteButtonGroup />
+          <RadioButtonsGroup />
+        </div>
+        <DoctorGrid />
+      </div>
+      <Pagination />
+    </div>
+    </div>
+  );
+};
 
-// export default App;
+export default App;

@@ -12,7 +12,7 @@ export default function Login() {
   const navigate = useNavigate();
   const handleLogin = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:3002/patient/login', { email, password });
+      const response = await axios.post('http://localhost:3000/patient/login', { email, password });
       const data = response.data;
   
       console.log('Login successful'); // White console log
