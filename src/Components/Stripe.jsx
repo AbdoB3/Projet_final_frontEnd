@@ -1,56 +1,62 @@
-// import React, { useState, useEffect } from 'react';
-// import { loadStripe } from '@stripe/stripe-js';
+import { useStripe, useElements } from '@stripe/react-stripe-js';
 
-// const stripePromise = loadStripe('pk_test_51PG0j4G5q0XFgCe1zfmxlMhD27yQOQWjD9w7EdjhETT2RAHKLdsRye90PD1GimP7PZSvFZ2AVIxYM5ERoPEwJ8VX00OsimyBLc'); // Replace with your publishable key
+const PaymentForm = () => {
+  const stripe = useStripe();
+  const elements = useElements();
 
-// const PaymentForm = () => {
-//   const [stripe, setStripe] = useState(null);
-//   const [elements, setElements] = useState(null);
-//   const [clientSecret, setClientSecret] = useState(''); // Replace with your client secret
+  // Replace with your actual client secret from Stripe
+  const clientSecret = 'your_client_secret';
 
-//   useEffect(() => {
-//     const getClientSecret = async () => {
-//       // Replace with your logic to fetch the client secret from your server
-//       const response = await fetch('/your-endpoint-to-fetch-client-secret');
-//       const data = await response.json();
-//       setClientSecret(data.clientSecret);
-//     };
+  const appearance = { /* appearance */ }; // Customize appearance (optional)
+  const options = {
+    layout: 'tabs', // Switch between "tabs" and "modal" layouts
+    defaultCollapsed: false, // Keep payment element initially expanded
+  };
 
-//     getClientSecret();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-//     stripePromise.then((stripeInstance) => {
-//       setStripe(stripeInstance);
-//     });
-//   }, []);
+    if (!stripe || !elements) {
+      // Handle errors if Stripe or Elements are not loaded
+      return;
+    }
 
-//   useEffect(() => {
-//     if (!stripe || !clientSecret) return;
+    const result = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(elements.CardElement),
+      },
+    });
 
-//     const elements = stripe.elements({ clientSecret });
-//     setElements(elements);
+    if (result.error) {
+      // Handle payment errors
+      console.error('Payment error:', result.error.message);
+    } else {
+      // Handle successful payment
+      console.log('Payment successful:', result.paymentIntent);
+    }
+  };
 
-//     const paymentElement = elements.create('payment', {
-//       layout: 'tabs',
-//       defaultCollapsed: false, // Adjust options as needed
-//     });
-//     paymentElement.mount('#payment-element');
-//   }, [stripe, clientSecret]);
+  return (
+    <form onSubmit={handleSubmit}>
+      <Elements stripe={stripe} elements={elements}>
+        <CardElement options={options} />
+      </Elements>
+      <button type="submit" disabled={!stripe}>
+        Pay
+      </button>
+    </form>
+  );
+};
 
-//   return (
-//     <div>
-//       {stripe && elements ? (
-//         <form onSubmit={(event) => event.preventDefault()}>
-//           <div id="payment-element"></div>
-//           {/* Add your form submission logic here */}
-//           <button type="submit" disabled={!stripe}>
-//             Pay Now
-//           </button>
-//         </form>
-//       ) : (
-//         <p>Loading payment form...</p>
-//       )}
-//     </div>
-//   );
-// };
 
-// export default PaymentForm;
+
+const App = () => {
+  return (
+    <div>
+      <h1>Yooo</h1>
+      <PaymentForm />
+    </div>
+  );
+};
+
+export default App;
