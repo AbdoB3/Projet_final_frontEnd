@@ -129,24 +129,34 @@ const App = () => {
   const [selectedGender, setSelectedGender] = useState('');
   const [selectedSpeciality, setSelectedSpeciality] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [doctorsPerPage] = useState(6);
+  const [totalDoctors, setTotalDoctors] = useState(0);
+  const [doctorsPerPage] = useState(3);
 
   useEffect(() => {
     const fetchDoctors = async () => {
-      const res = await axios.get('http://localhost:3000/doctors', {
-        params: {
-          gender: selectedGender,
-          speciality: selectedSpeciality,
-          page: currentPage,
-          limit: doctorsPerPage
-        }
-      });
-      setDoctors(res.data);
+      try {
+        const res = await axios.get('http://localhost:3000/doctors', {
+          params: {
+            gender: selectedGender,
+            speciality: selectedSpeciality,
+            page: currentPage,
+            limit: doctorsPerPage
+          }
+        });
+        setDoctors(res.data.doctors);
+        setTotalDoctors(res.data.total);
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+      }
     };
 
     const fetchSpecialities = async () => {
-      const res = await axios.get('http://localhost:3000/speciality');
-      setSpecialities(res.data);
+      try {
+        const res = await axios.get('http://localhost:3000/speciality');
+        setSpecialities(res.data);
+      } catch (error) {
+        console.error('Error fetching specialities:', error);
+      }
     };
 
     fetchDoctors();
@@ -175,8 +185,8 @@ const App = () => {
         <Pagination
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          totalDoctors={doctors.length}
-          doctorsPerPage={doctorsPerPage}
+          totalDoctors={totalDoctors}
+          doctorsPerPage={3}
         />
       </div>
     </div>
