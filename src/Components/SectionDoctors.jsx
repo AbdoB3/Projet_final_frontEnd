@@ -40,9 +40,7 @@ export default function SectionDoctors({ searchTerm }) {
                 {doctors.map((doctor, index) => (
                     <div key={index} className="mx-2">
                         <PropsDoctor
-                            id={doctor._id
-                                
-                            }
+                            id={doctor._id}
 
                             firstname={doctor.firstname}
                             lastname={doctor.lastname}
