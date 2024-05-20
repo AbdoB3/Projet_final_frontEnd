@@ -50,7 +50,7 @@ export default function SectionDoctors({ searchTerm }) {
                             sexe={doctor.sexe}
                             feePer={doctor.feePer}
                             description={doctor.description}
-                            imageUrl={doctor.imageUrl}
+                            
                         />
                     </div>
                 ))}
