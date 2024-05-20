@@ -1,12 +1,14 @@
 import React from "react";
 
-function SignUpForm() {
+function SignUpForm({ handleRegister }) {
   const [state, setState] = React.useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: ""
   });
-  const handleChange = evt => {
+
+  const handleChange = (evt) => {
     const value = evt.target.value;
     setState({
       ...state,
@@ -14,24 +16,20 @@ function SignUpForm() {
     });
   };
 
-  const handleOnSubmit = evt => {
+  const handleOnSubmit = (evt) => {
     evt.preventDefault();
-
-    const { name, email, password } = state;
-    alert(
-      `You are sign up with name: ${name} email: ${email} and password: ${password}`
-    );
-
-    for (const key in state) {
-      setState({
-        ...state,
-        [key]: ""
-      });
-    }
+    const { firstName, lastName, email, password } = state;
+    handleRegister(firstName, lastName, email, password);
+    setState({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: ""
+    });
   };
 
   return (
-    <div className="form-container sign-up-container " >
+    <div className="form-container sign-up-container">
       <form onSubmit={handleOnSubmit}>
         <h1>Create Account</h1>
         <div className="social-container">
@@ -48,10 +46,17 @@ function SignUpForm() {
         <span>or use your email for registration</span>
         <input
           type="text"
-          name="name"
-          value={state.name}
+          name="firstName"
+          value={state.firstName}
           onChange={handleChange}
-          placeholder="Name"
+          placeholder="First Name"
+        />
+        <input
+          type="text"
+          name="lastName"
+          value={state.lastName}
+          onChange={handleChange}
+          placeholder="Last Name"
         />
         <input
           type="email"

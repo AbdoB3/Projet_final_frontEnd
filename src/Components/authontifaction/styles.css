@@ -1,4 +1,3 @@
-
 /* style.css */
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"); /* Add this line to import Font Awesome */
@@ -13,7 +12,7 @@
 .login-container {
   font-family: "Montserrat", sans-serif;
   text-align: center;
-  background: #f6f5f7; /* This is the background of the login container */
+  background: radial-gradient(circle, #cfc1dd, #6db6ff); /* Circular gradient */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,7 +54,7 @@
   border-radius: 20px;
   border: 1px solid #ffffff;
   background-color:#385986;
-  background-image: linear-gradient(to right, #007bff, #66b3ff);
+  background-image: radial-gradient(ellipse, #003f82, #66d9ff);
 
   color: #ffffff;
   font-size: 12px;
@@ -171,7 +170,7 @@
 
 .login-container .overlay {
   background:#618eca; /* Blue color */
-  background: -webkit-linear-gradient(to right, #4169E1, #4682B4); /* Blue gradient */
+  background: -webkit-linear-gradient(to right, #1a2030, #4682B4); /* Blue gradient */
   background: linear-gradient(to right, #4169E1, #4682B4); /* Blue gradient */
   background-repeat: no-repeat;
   background-size: cover;
