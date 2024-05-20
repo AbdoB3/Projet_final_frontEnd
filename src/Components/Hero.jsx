@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import heroImage from '../assets/doctors.jpg';
 import Autosuggest from 'react-autosuggest';
+import { Link } from 'react-router-dom';
 
 const Hero = ({ handleSearchSubmit, handleSearchInputChange, suggestions }) => {
     const [autosuggestValue, setAutosuggestValue] = useState('');
@@ -52,7 +53,12 @@ const Hero = ({ handleSearchSubmit, handleSearchInputChange, suggestions }) => {
                     <h1 className="mb-4 text-2xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
                         Trouvez Votre Consultation Rapidement{' '}
                     </h1>
-                    <button className="flex items-center justify-center px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    <Link
+                     to='/doctors'>
+                    <button className="flex items-center
+                     justify-center px-4 py-2 bg-blue-500 
+                     text-white rounded-md shadow-md hover:bg-blue-600
+                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                         Trouver un Doctor
                         <svg
                             className="w-5 h-4 ml-2"
@@ -64,6 +70,7 @@ const Hero = ({ handleSearchSubmit, handleSearchInputChange, suggestions }) => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
                     </button>
+                    </Link>
                     <div className="mt-8 flex justify-center item-end">
                         <form className="max-w-md mx-auto" onSubmit={handleSubmit}>
                             <div className="relative w-full">

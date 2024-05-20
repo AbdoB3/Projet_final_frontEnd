@@ -67,7 +67,7 @@ const Doctorpage = () => {
               <div className="flex items-center justify-center mb-4">
                 <div className="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
                   <img className="w-full h-full object-cover"
-                    src="https://source.unsplash.com/random"
+                    src= {doctor?.imageUrl}
                     alt="Image du médecin" />
                 </div>
               </div>

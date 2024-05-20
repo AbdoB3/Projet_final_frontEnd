@@ -16,8 +16,8 @@ export default function SectionDoctors({ searchTerm }) {
 
     const fetchDoctors = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/doctors?limit=4`);
-            const doctorsData = response.data.doctors.slice(0, 4);
+            const response = await axios.get(`http://localhost:3000/doctors?limit=3`);
+            const doctorsData = response.data.doctors.slice(0, 3);
             setDoctors(doctorsData);
         } catch (error) {
             console.error('Error fetching doctors:', error);
@@ -50,6 +50,7 @@ export default function SectionDoctors({ searchTerm }) {
                             sexe={doctor.sexe}
                             feePer={doctor.feePer}
                             description={doctor.description}
+                            imageUrl={doctor.imageUrl}
                         />
                     </div>
                 ))}

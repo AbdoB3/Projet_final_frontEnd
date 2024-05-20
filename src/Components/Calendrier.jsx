@@ -1,178 +1,209 @@
-import React, { Component } from 'react';
-import { AppointmentPicker } from 'react-appointment-picker';
+// Calendrier 
 
-export default class App extends Component {
-  state = {
-    loading: false,
-    continuousLoading: false
+
+import React, { useState, useEffect } from 'react';
+import { Calendar, Modal, Badge, Input, Space, Button, message as antdMessage, Popconfirm } from 'antd';
+import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import moment from 'moment';
+
+const { TextArea } = Input;
+
+const AppointmentCalendar = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [message, setMessage] = useState('');
+  const [appointments, setAppointments] = useState([]);
+  const [confirmationVisible, setConfirmationVisible] = useState(false);
+  const [deletionVisible, setDeletionVisible] = useState(false);
+
+  const timeSlots = [
+    '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'
+  ];
+
+  const openModal = () => {
+    setIsModalVisible(true);
   };
 
-  addAppointmentCallback = ({
-    addedAppointment: { day, number, time, id },
-    addCb
-  }) => {
-    this.setState(
-      {
-        loading: true
-      },
-      async () => {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        console.log(
-          `Added appointment ${number}, day ${day}, time ${time}, id ${id}`
-        );
-        addCb(day, number, time, id);
-        this.setState({ loading: false });
+  const onSelectDate = (value) => {
+    setSelectedDate(value);
+    setSelectedTime(null); // Reset selected time when a new date is selected
+    setMessage(''); // Reset message when a new date is selected
+    console.log('Selected Date:', value.format('YYYY-MM-DD')); // Log the selected date
+  };
+
+  const handleTimeChange = (e) => {
+    setSelectedTime(e.target.value);
+  };
+
+  const handleMessageChange = (e) => {
+    setMessage(e.target.value);
+  };
+
+  const handleOk = () => {
+    if (selectedDate && selectedTime) {
+      const newAppointment = {
+        date: selectedDate.format('YYYY-MM-DD'),
+        time: selectedTime,
+        message,
+      };
+
+      // Check if the appointment already exists
+      const appointmentExists = appointments.some(
+        (appointment) => appointment.date === newAppointment.date && appointment.time === newAppointment.time
+      );
+
+      if (appointmentExists) {
+        antdMessage.error('Un rendez-vous existe déjà à cette heure.');
+      } else {
+        setAppointments([...appointments, newAppointment]);
+        setIsModalVisible(false);
+        setConfirmationVisible(true);
       }
-    );
+    }
   };
 
-  removeAppointmentCallback = ({ day, number, time, id }, removeCb) => {
-    this.setState(
-      {
-        loading: true
-      },
-      async () => {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        console.log(
-          `Removed appointment ${number}, day ${day}, time ${time}, id ${id}`
-        );
-        removeCb(day, number);
-        this.setState({ loading: false });
-      }
-    );
+  const handleCancel = () => {
+    setIsModalVisible(false);
   };
 
-  addAppointmentCallbackContinuousCase = ({
-    addedAppointment: { day, number, time, id },
-    addCb,
-    removedAppointment: params,
-    removeCb
-  }) => {
-    this.setState(
-      {
-        continuousLoading: true
-      },
-      async () => {
-        if (removeCb) {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          console.log(
-            `Removed appointment ${params.number}, day ${params.day}, time ${params.time}, id ${params.id}`
-          );
-          removeCb(params.day, params.number);
-        }
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        console.log(
-          `Added appointment ${number}, day ${day}, time ${time}, id ${id}`
-        );
-        addCb(day, number, time, id);
-        this.setState({ continuousLoading: false });
-      }
+  const dateCellRender = (value) => {
+    const currentDayAppointments = appointments.filter(
+      (appointment) => appointment.date === value.format('YYYY-MM-DD')
     );
-  };
-
-  removeAppointmentCallbackContinuousCase = (
-    { day, number, time, id },
-    removeCb
-  ) => {
-    this.setState(
-      {
-        continuousLoading: true
-      },
-      async () => {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        console.log(
-          `Removed appointment ${number}, day ${day}, time ${time}, id ${id}`
-        );
-        removeCb(day, number);
-        this.setState({ continuousLoading: false });
-      }
-    );
-  };
-
-  render() {
-    const days = [
-      [
-        { id: 1, number: 1, isSelected: true, periods: 2 },
-        { id: 2, number: 2 },
-        null,
-        { id: 3, number: '3', isReserved: true },
-        { id: 4, number: '4' },
-        null,
-        { id: 5, number: 5 },
-        { id: 6, number: 6 }
-      ],
-      [
-        { id: 7, number: 1, isReserved: true, periods: 3 },
-        { id: 8, number: 2, isReserved: true },
-        null,
-        { id: 9, number: '3', isReserved: true },
-        { id: 10, number: '4' },
-        null,
-        { id: 11, number: 5 },
-        { id: 12, number: 6 }
-      ],
-      [
-        { id: 13, number: 1 },
-        { id: 14, number: 2 },
-        null,
-        { id: 15, number: 3, isReserved: true },
-        { id: 16, number: '4' },
-        null,
-        { id: 17, number: 5 },
-        { id: 18, number: 6 }
-      ],
-      [
-        { id: 19, number: 1 },
-        { id: 20, number: 2 },
-        null,
-        { id: 21, number: 3 },
-        { id: 22, number: '4' },
-        null,
-        { id: 23, number: 5 },
-        { id: 24, number: 6 }
-      ],
-      [
-        { id: 25, number: 1, isReserved: true },
-        { id: 26, number: 2 },
-        null,
-        { id: 27, number: '3', isReserved: true },
-        { id: 28, number: '4' },
-        null,
-        { id: 29, number: 5 },
-        { id: 30, number: 6, isReserved: true }
-      ]
-    ];
-    const { loading, continuousLoading } = this.state;
     return (
-      <div>
-        <h1>Appointment Picker</h1>
-        <AppointmentPicker
-          addAppointmentCallback={this.addAppointmentCallback}
-          removeAppointmentCallback={this.removeAppointmentCallback}
-          initialDay={new Date('2018-05-05')}
-          days={days}
-          maxReservableAppointments={3}
-          alpha
-          visible
-          selectedByDefault
-          loading={loading}
-        />
-        <h1>Appointment Picker Continuous Case</h1>
-        <AppointmentPicker
-          addAppointmentCallback={this.addAppointmentCallbackContinuousCase}
-          removeAppointmentCallback={
-            this.removeAppointmentCallbackContinuousCase
-          }
-          initialDay={new Date('2018-05-05')}
-          days={days}
-          maxReservableAppointments={2}
-          alpha
-          visible
-          selectedByDefault
-          loading={continuousLoading}
-          continuous
-        />
-      </div>
+      <ul className="events">
+        {currentDayAppointments.map((item, index) => (
+          <li key={index}>
+           <Badge status="success" text={item.time} />
+
+            <Popconfirm
+              title="Êtes-vous sûr de vouloir supprimer ce rendez-vous?"
+              onConfirm={() => handleDelete(item)}
+              okText="Oui"
+              cancelText="Non"
+            >
+              <Button type="link" danger>Supprimer</Button>
+            </Popconfirm>
+          </li>
+        ))}
+      </ul>
     );
-  }
-}
+  };
+
+  const getAvailableTimeSlots = () => {
+    if (!selectedDate) return [];
+
+    const selectedDateStr = selectedDate.format('YYYY-MM-DD');
+    const currentDayAppointments = appointments.filter(
+      (appointment) => appointment.date === selectedDateStr
+    );
+
+    const availableSlots = timeSlots.filter((slot) => {
+      const [hour, minute] = slot.split(':').map(Number);
+      const slotTime = moment(selectedDate).hours(hour).minutes(minute);
+      return currentDayAppointments.every((appointment) => {
+        const [appHour, appMinute] = appointment.time.split(':').map(Number);
+        const appTime = moment(selectedDate).hours(appHour).minutes(appMinute);
+        return Math.abs(slotTime.diff(appTime, 'minutes')) >= 50;
+      });
+    });
+
+    return availableSlots;
+  };
+
+  const handleDelete = (appointmentToDelete) => {
+    setAppointments(appointments.filter(
+      (appointment) => !(appointment.date === appointmentToDelete.date && appointment.time === appointmentToDelete.time)
+    ));
+    antdMessage.success('Rendez-vous supprimé avec succès.');
+    setDeletionVisible(true);
+  };
+
+  return (
+    <div className="p-6 bg-gray-100 min-h-screen flex flex-col items-center">
+      <h1 className="text-2xl font-bold mb-4 text-center">Prendre un rendez-vous</h1>
+      <Button type="primary" onClick={openModal}>Ouvrir le calendrier</Button>
+      <Modal
+        title="Sélectionnez une date, une heure et ajoutez un message"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        width={800}
+        centered // Centrer le modal
+        style={{ maxHeight: '70vh', overflowY: 'auto' }} // Ajout du défilement interne
+      >
+        <Space direction="vertical" size={12} className="w-full">
+          <Calendar
+            fullscreen={false}
+            onSelect={onSelectDate}
+            dateCellRender={dateCellRender}
+            className="bg-white p-4 rounded-lg shadow-md"
+          />
+          {selectedDate && (
+            <>
+              <h3>Date: {selectedDate.format('YYYY-MM-DD')}</h3>
+              <h4>Heure disponible:</h4>
+              <div className="flex flex-wrap">
+                {getAvailableTimeSlots().map((slot) => (
+                  <button
+                    key={slot}
+                    value={slot}
+                    onClick={handleTimeChange}
+                    className={`m-2 p-2 border rounded ${
+                      selectedTime === slot ? 'bg-blue-500 text-white' : 'bg-gray-200'
+                    }`}
+                  >
+                    {slot}
+                  </button>
+                ))}
+              </div>
+              <TextArea
+                value={message}
+                onChange={handleMessageChange}
+                placeholder="Ajouter un message"
+                rows={4}
+              />
+            </>
+          )}
+        </Space>
+      </Modal>
+
+      <Modal
+        title="Confirmation"
+        visible={confirmationVisible}
+        onOk={() => setConfirmationVisible(false)}
+        onCancel={() => setConfirmationVisible(false)}
+        footer={[
+          <Button key="ok" type="primary" onClick={() => setConfirmationVisible(false)}>
+            Ok
+          </Button>
+        ]}
+      >
+        <div className="flex items-center justify-center flex-col">
+          <CheckCircleOutlined style={{ fontSize: '48px', color: '#52c41a' }} />
+          <p className="mt-4">Votre rendez-vous a été pris avec succès.</p>
+        </div>
+      </Modal>
+
+      <Modal
+        title="Suppression"
+        visible={deletionVisible}
+        onOk={() => setDeletionVisible(false)}
+        onCancel={() => setDeletionVisible(false)}
+        footer={[
+          <Button key="ok" type="primary" onClick={() => setDeletionVisible(false)}>
+            Ok
+          </Button>
+        ]}
+      >
+        <div className="flex items-center justify-center flex-col">
+          <CloseCircleOutlined style={{ fontSize: '48px', color: '#f5222d' }} />
+          <p className="mt-4">Votre rendez-vous a été supprimé avec succès.</p>
+        </div>
+      </Modal>
+    </div>
+  );
+};
+
+export default AppointmentCalendar;
