@@ -7,7 +7,7 @@ import Navbar from './Components/Navbar';
 import Footer from './Components/Footer';
 import Contact from './Components/Contact';
 import Registredoctor from './Components/Registredoctor';
-
+import Dossier from './Components/Dossier'
 import Doctorspage from './Components/Doctorspage';
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
           <Route path="/registerdoctor" element={<Registredoctor/>} />
           <Route path="/doctor/:id" element={<Doctorpage />} />
           <Route path="/doctors" element={<Doctorspage />} />
+          <Route path="/dossier" element={<Dossier />} />
           {/* Add more routes here as needed */}
 
         </Routes>

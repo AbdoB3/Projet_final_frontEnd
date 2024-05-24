@@ -5,22 +5,26 @@ import SignUpForm from "./SignUp";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeartbeat } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function Login() {
   const [type, setType] = useState("signIn");
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo = new URLSearchParams(location.search).get('redirect') || '/';
 
   const handleLogin = async (email, password) => {
     try {
       const response = await axios.post('http://localhost:3000/patient/login', { email, password });
       const data = response.data;
-  
+
       console.log('Login successful');
       localStorage.setItem('token', data.token);
-      navigate('/');
+      navigate(redirectTo);
     } catch (error) {
-      console.error(' error:', error);
+      console.error('Login error:', error);
+      setError('Login failed. Please check your credentials and try again.');
     }
   };
 
@@ -28,19 +32,20 @@ export default function Login() {
     try {
       const response = await axios.post('http://localhost:3000/patient/register', { firstName, lastName, email, password });
       const data = response.data;
-  
+
       console.log('Register successful');
       localStorage.setItem('token', data.token);
-      navigate('/');
+      navigate(redirectTo);
     } catch (error) {
       console.error('Register error:', error);
+      setError('Registration failed. Please check your details and try again.');
     }
   };
 
-  
   const handleOnClick = (text) => {
     if (text !== type) {
       setType(text);
+      setError(null); // Reset error message when switching forms
     }
   };
 
@@ -52,11 +57,12 @@ export default function Login() {
         <div id="container" className={containerClass}>
           <SignUpForm handleRegister={handleRegister} />
           <SignInForm handleLogin={handleLogin} />
+          
           <div className="overlay-container">
             <div className="overlay">
               <div className="overlay-panel overlay-left">
                 <div className="logo flex items-center">
-                  <FontAwesomeIcon icon={faHeartbeat} className="text-4xl mr-2" style={{ color: 'white' }} beat/>
+                  <FontAwesomeIcon icon={faHeartbeat} className="text-4xl mr-2" style={{ color: 'white' }} beat />
                   <h1 className="font-bold text-2xl" style={{ color: 'white' }}>ConsultaMed</h1>
                 </div>
                 <p>Pour rester connecté avec nous, veuillez vous connecter avec vos informations personnelles</p>
@@ -66,7 +72,7 @@ export default function Login() {
               </div>
               <div className="overlay-panel overlay-right">
                 <div className="logo flex items-center">
-                  <FontAwesomeIcon icon={faHeartbeat} className="text-4xl mr-2 " style={{ color: 'white' }} beat />
+                  <FontAwesomeIcon icon={faHeartbeat} className="text-4xl mr-2" style={{ color: 'white' }} beat />
                   <h1 className="font-bold text-2xl" style={{ color: 'white' }}>ConsultaMed</h1>
                 </div>
                 <p>Entrez vos informations personnelles et commencez votre voyage avec nous</p>
@@ -77,6 +83,7 @@ export default function Login() {
             </div>
           </div>
         </div>
+        {error && <div className="error-message">{error}</div>}
       </div>
     </div>
   );

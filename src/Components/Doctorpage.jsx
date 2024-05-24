@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Modal } from 'antd';
+import { Modal, Button, message } from 'antd';
 import Calendrier from './Calendrier';
 import Footer from './Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -38,17 +38,6 @@ const Doctorpage = () => {
     setActiveButton(buttonName);
   };
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
 
   return (
     <>
@@ -107,12 +96,9 @@ const Doctorpage = () => {
               </div>
 
               <div className="mb-3">
-                <button type="button" onClick={showModal} className="bg-indigo-500 w-900
-               dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-indigo-700
-                dark:hover:bg-gray-700 w-1/2 px-2">Consultez</button>
-                <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                  <Calendrier />
-                </Modal>
+        
+                 <Calendrier />
+           
               </div>
 
             </div>

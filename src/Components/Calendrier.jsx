@@ -1,6 +1,5 @@
 // Calendrier 
-
-
+import { useParams, useNavigate , useLocation} from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { Calendar, Modal, Badge, Input, Space, Button, message as antdMessage, Popconfirm } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
@@ -8,7 +7,9 @@ import moment from 'moment';
 
 const { TextArea } = Input;
 
-const AppointmentCalendar = () => {
+const AppointmentCalendar = () => { 
+   const location = useLocation(); 
+   const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
@@ -21,9 +22,17 @@ const AppointmentCalendar = () => {
     '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'
   ];
 
-  const openModal = () => {
-    setIsModalVisible(true);
+  const showModal = () => {
+    const token = localStorage.getItem('token'); // Retrieve the token from local storage
+  
+    if (token) {
+      setIsModalVisible(true); // Show the modal if the token exists
+    } else {
+      console.error('Vous devez être connecté pour consulter.');
+      navigate(`/login?redirect=${location.pathname}`);
+    }
   };
+
 
   const onSelectDate = (value) => {
     setSelectedDate(value);
@@ -75,8 +84,7 @@ const AppointmentCalendar = () => {
       <ul className="events">
         {currentDayAppointments.map((item, index) => (
           <li key={index}>
-           <Badge status="success" text={item.time} />
-
+            <Badge status="success" text={`${item.time}`} />
             <Popconfirm
               title="Êtes-vous sûr de vouloir supprimer ce rendez-vous?"
               onConfirm={() => handleDelete(item)}
@@ -121,9 +129,11 @@ const AppointmentCalendar = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-4 text-center">Prendre un rendez-vous</h1>
-      <Button type="primary" onClick={openModal}>Ouvrir le calendrier</Button>
+    <div >
+    
+      <Button type="primary" open={isModalVisible} onClick={showModal} onOk={handleOk} onCancel={handleCancel} className="bg-indigo-500 w-900
+               dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-indigo-700
+                dark:hover:bg-gray-700 w-1/2 px-2">Consulter </Button>
       <Modal
         title="Sélectionnez une date, une heure et ajoutez un message"
         visible={isModalVisible}

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Input, Button, Select, Upload, TimePicker, message } from 'antd'; // Supprimer l'importation en double de Input
+import React, { useState } from 'react';
+import { Form, Input, Button, Select, Upload, TimePicker, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import moment from 'moment';
-
 
 const Registre = () => {
   const token = localStorage.getItem('token');
@@ -22,35 +21,24 @@ const Registre = () => {
     fromTime: "",
     toTime: "",
     phone: "",
-    description: "", // Ajouter le champ de description à l'état du formulaire
+    description: "",
   });
 
-  useEffect(() => {
-    const fetchDoctorData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/doctors/');
-        const data = response.data;
-        setFormm(data);
-        form.setFieldsValue({
-          ...data,
-          fromTime: data.fromTime ? moment(data.fromTime, 'HH:mm') : null,
-          toTime: data.toTime ? moment(data.toTime, 'HH:mm') : null
-        });
-      } catch (error) {
-        console.error('Erreur lors de la récupération des données du médecin :', error);
-      }
-    };
-
-    fetchDoctorData();
-  }, [form, token]);
+  const [fileList, setFileList] = useState([]);
 
   const handleInsert = async (values) => {
     try {
       const fromTime = values.fromTime ? values.fromTime.format('HH:mm') : '';
       const toTime = values.toTime ? values.toTime.format('HH:mm') : '';
-      const payload = { ...values, fromTime, toTime };
 
-      await axios.post('http://localhost:3000/doctors', payload, {
+      const updatedForm = {
+        ...values,
+        fromTime,
+        toTime,
+        imageUrl: formm.imageUrl,
+      };
+
+      await axios.post('http://localhost:3000/doctors', updatedForm, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -70,6 +58,7 @@ const Registre = () => {
       fromTime: formm.fromTime ? moment(formm.fromTime, 'HH:mm') : null,
       toTime: formm.toTime ? moment(formm.toTime, 'HH:mm') : null,
     });
+    setFileList([]);
   };
 
   const formItemLayout = {
@@ -84,13 +73,13 @@ const Registre = () => {
       upload_preset: 'kj1jodbh',
     },
     listType: 'picture',
+    fileList: fileList,
     onChange(info) {
-      if (info.file.status === 'uploading') {
-        console.log('Téléchargement en cours...');
-      }
+      setFileList(info.fileList);
       if (info.file.status === 'done') {
         console.log('Fichier téléchargé :', info.file.response);
         setFormm({ ...formm, imageUrl: info.file.response.secure_url });
+        form.setFieldsValue({ imageUrl: info.file.response.secure_url });
       } else if (info.file.status === 'error') {
         console.error('Erreur de téléchargement :', info.file.error, info.file.response);
         message.error('Échec du téléchargement de l\'image.');
@@ -99,15 +88,15 @@ const Registre = () => {
   };
 
   return (
-    <div className="p-5 border-2 shadow-lg border-grey-300 rounded" style={{height:"100vh"}}>
-      <div style={{display:'flex',justifyContent:'center'}}>
-      <h2 class="text-2xl font-bold mb-3 text-centre text-blue-500" style={{alignItems :'center'}}>
-       Rejoignez-nous</h2>
+    <div className="p-5 border-2 shadow-lg border-grey-300 rounded" style={{ height: "100vh" }}>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <h2 className="text-2xl font-bold mb-3 text-center text-blue-500" style={{ alignItems: 'center' }}>
+          Rejoignez-nous
+        </h2>
       </div>
       <Form
         form={form}
         {...formItemLayout}
-        className="justify-text"
         initialValues={{
           ...formm,
           fromTime: formm.fromTime ? moment(formm.fromTime, 'HH:mm') : null,
@@ -124,7 +113,7 @@ const Registre = () => {
             />
           </div>
         )}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2" >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
           <Form.Item label="Prénom" name="firstname">
             <Input />
           </Form.Item>
@@ -158,7 +147,6 @@ const Registre = () => {
           <Form.Item label="Spécialité" name="speciality">
             <Input />
           </Form.Item>
-
           <Form.Item label="Description" name="description">
             <Input.TextArea rows={2} />
           </Form.Item>
@@ -179,7 +167,6 @@ const Registre = () => {
               <Button icon={<UploadOutlined />}>Télécharger</Button>
             </Upload>
           </Form.Item>
-
         </div>
         <Form.Item wrapperCol={{ offset: 1, span: 18 }}>
           <Button type="primary" htmlType="submit" icon={<FontAwesomeIcon icon={faSave} />}>
