@@ -64,6 +64,7 @@ function SignInForm({ handleLogin }) { // Receive handleLogin as prop
         />
         <a href="#">Mot de passe oublié ?</a>
         <button type="submit">Se connecter</button>
+      
       </form>
     </div>
   );

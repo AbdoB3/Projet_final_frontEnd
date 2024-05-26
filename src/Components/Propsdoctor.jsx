@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import  doctorimg  from '../assets/doctor-img02.png';
 export default function Propsdoctor({ id, firstname , imageUrl, lastname, speciality, description,
   sexe, feePer, onClick }) {
   console.log('Doctor ID:', id);
@@ -10,7 +10,7 @@ export default function Propsdoctor({ id, firstname , imageUrl, lastname, specia
         <Link to={`/doctor/${id}`}>
           <img
             className="rounded-lg sm:m-h-64 md:h-64 w-full"
-            src="https://source.unsplash.com/random"
+            src={doctorimg}
             alt="Doctor"
             style={{ width: '400px', height: '400px' }}
           />

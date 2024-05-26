@@ -19,6 +19,7 @@ export default function Login() {
       const response = await axios.post('http://localhost:3000/patient/login', { email, password });
       const data = response.data;
 
+
       console.log('Login successful');
       localStorage.setItem('token', data.token);
       navigate(redirectTo);
@@ -33,6 +34,7 @@ export default function Login() {
       const response = await axios.post('http://localhost:3000/patient/register', { firstName, lastName, email, password });
       const data = response.data;
 
+
       console.log('Register successful');
       localStorage.setItem('token', data.token);
       window.location.href = 'http://localhost:5173/dossier';
@@ -46,6 +48,7 @@ export default function Login() {
       setError('Registration failed. Please check your details and try again.');
     }
   };
+
 
   const handleOnClick = (text) => {
     if (text !== type) {
@@ -62,6 +65,7 @@ export default function Login() {
         <div id="container" className={containerClass}>
           <SignUpForm handleRegister={handleRegister} />
           <SignInForm handleLogin={handleLogin} />
+          
           
           <div className="overlay-container">
             <div className="overlay">

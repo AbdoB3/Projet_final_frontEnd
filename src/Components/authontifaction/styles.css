@@ -12,7 +12,7 @@
 .login-container {
   font-family: "Montserrat", sans-serif;
   text-align: center;
-  background: radial-gradient(circle, #cfc1dd, #6db6ff); /* Circular gradient */
+  
   display: flex;
   justify-content: center;
   align-items: center;
