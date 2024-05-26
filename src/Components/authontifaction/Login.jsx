@@ -35,7 +35,12 @@ export default function Login() {
 
       console.log('Register successful');
       localStorage.setItem('token', data.token);
-      navigate(redirectTo);
+      window.location.href = 'http://localhost:5173/dossier';
+
+      // Delay the original navigation to allow the dossier page to render first
+      setTimeout(() => {
+        navigate(redirectTo);
+      }, 2000); // A
     } catch (error) {
       console.error('Register error:', error);
       setError('Registration failed. Please check your details and try again.');

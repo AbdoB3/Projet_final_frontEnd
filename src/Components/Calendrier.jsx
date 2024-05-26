@@ -1,15 +1,14 @@
-// Calendrier 
-import { useParams, useNavigate , useLocation} from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import { Calendar, Modal, Badge, Input, Space, Button, message as antdMessage, Popconfirm } from 'antd';
+import { Calendar, Modal, Badge, Input, Space, Button, message as antdMessage, Popconfirm, Form, Checkbox } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
 const { TextArea } = Input;
 
-const AppointmentCalendar = () => { 
-   const location = useLocation(); 
-   const navigate = useNavigate();
+const AppointmentCalendar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
@@ -24,7 +23,6 @@ const AppointmentCalendar = () => {
 
   const showModal = () => {
     const token = localStorage.getItem('token'); // Retrieve the token from local storage
-  
     if (token) {
       setIsModalVisible(true); // Show the modal if the token exists
     } else {
@@ -32,7 +30,6 @@ const AppointmentCalendar = () => {
       navigate(`/login?redirect=${location.pathname}`);
     }
   };
-
 
   const onSelectDate = (value) => {
     setSelectedDate(value);
@@ -129,11 +126,10 @@ const AppointmentCalendar = () => {
   };
 
   return (
-    <div >
-    
+    <div>
       <Button type="primary" open={isModalVisible} onClick={showModal} onOk={handleOk} onCancel={handleCancel} className="bg-indigo-500 w-900
                dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-indigo-700
-                dark:hover:bg-gray-700 w-1/2 px-2">Consulter </Button>
+                dark:hover:bg-gray-700 w-1/2 px-2">Consulter</Button>
       <Modal
         title="Sélectionnez une date, une heure et ajoutez un message"
         visible={isModalVisible}
@@ -168,6 +164,30 @@ const AppointmentCalendar = () => {
                   </button>
                 ))}
               </div>
+              <Form>
+                <Form.Item
+                  name="symptoms"
+                  label="Symptômes"
+                  rules={[{ required: true, message: 'Veuillez décrire vos symptômes!' }]}
+                >
+                  <Checkbox.Group>
+                    <Checkbox value="Cough">Toux</Checkbox>
+                    <Checkbox value="Fever">Fièvre</Checkbox>
+                    <Checkbox value="Headache">Mal de tête</Checkbox>
+                    <Checkbox value="Fatigue">Fatigue</Checkbox>
+                    <Checkbox value="Nausea">Nausée</Checkbox>
+                    <Checkbox value="Vomiting">Vomissements</Checkbox>
+                    <Checkbox value="Diarrhea">Diarrhée</Checkbox>
+                    <Checkbox value="SoreThroat">Mal de gorge</Checkbox>
+                    <Checkbox value="ShortnessOfBreath">Essoufflement</Checkbox>
+                    <Checkbox value="ChestPain">Douleur à la poitrine</Checkbox>
+                    <Checkbox value="MusclePain">Douleur musculaire</Checkbox>
+                    <Checkbox value="Dizziness">Vertiges</Checkbox>
+                    <Checkbox value="LossOfTasteOrSmell">Perte de goût ou d'odorat</Checkbox>
+                    <Checkbox value="Other">Autre</Checkbox>
+                  </Checkbox.Group>
+                </Form.Item>
+              </Form>
               <TextArea
                 value={message}
                 onChange={handleMessageChange}

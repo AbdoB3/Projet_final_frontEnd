@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, DatePicker, Checkbox, Select, message } from 'antd';
+import { Form, Input, Button, Checkbox, Select, message } from 'antd';
 import axios from 'axios';
 
 const { Option } = Select;
@@ -32,21 +32,9 @@ const MedicalForm = () => {
           layout="vertical"
           onFinish={onFinish}
         >
-          <Form.Item
-            name="name"
-            label="Nom"
-            rules={[{ required: true, message: 'Veuillez entrer votre nom!' }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="birthdate"
-            label="Date de Naissance"
-            rules={[{ required: true, message: 'Veuillez entrer votre date de naissance!' }]}
-          >
-            <DatePicker />
-          </Form.Item>
-          <Form.Item
+         
+      
+          {/* <Form.Item
             name="symptoms"
             label="Symptômes"
             rules={[{ required: true, message: 'Veuillez décrire vos symptômes!' }]}
@@ -67,7 +55,7 @@ const MedicalForm = () => {
               <Checkbox value="LossOfTasteOrSmell">Perte de goût ou d'odorat</Checkbox>
               <Checkbox value="Other">Autre</Checkbox>
             </Checkbox.Group>
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item
             name="allergies"
             label="Avez-vous des allergies ?"
