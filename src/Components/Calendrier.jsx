@@ -159,7 +159,7 @@ const AppointmentCalendar = () => {
     <div>
       <Button type="primary" open={isModalVisible} onClick={showModal} onOk={handleOk} onCancel={handleCancel} className="bg-indigo-500 w-900
                dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-indigo-700
-                dark:hover:bg-gray-700 w-1/2 px-2">Consulter</Button>
+                dark:hover:bg-gray-700 w-1/2 ">Consulter</Button>
       <Modal
         title="Select a date, time and add a message"
         open={isModalVisible}

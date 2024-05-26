@@ -114,7 +114,7 @@ const Doctorpage = () => {
                 <p className="text-gray-600 text-sm">{doctor?.address?.city}, {doctor?.address?.state}, {doctor?.address?.country}</p>
               </div>
               <div className="" style={{ marginTop: '40px' }}>
-                <button type="button" className="bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 px-4 rounded-full font-bold hover:bg-indigo-700 dark:hover:bg-gray-700 px-2">
+                <button type="button" className="bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 rounded-full font-bold hover:bg-indigo-700 dark:hover:bg-gray-700 px-2">
                   <Link to="/doctors/">
                     <span>Notre médecines</span>
                     <span><FontAwesomeIcon icon={faArrowRight} className="ml-2" /></span>
