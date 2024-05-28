@@ -1,5 +1,5 @@
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Calendar, Modal, Badge, Input, Space, Button, message as antdMessage, Popconfirm, Form, Checkbox } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
@@ -18,17 +18,21 @@ const AppointmentCalendar = () => {
   const [symptoms, setSymptoms] = useState([]);
   const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [deletionVisible, setDeletionVisible] = useState(false);
+  const [error, setError] = useState(null);
+
+  const { doctorId, patientId } = useParams();
 
   const timeSlots = [
-    '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'
+    '08:00', '09:00', '10:00', '11:00', '12:00', '13:00',
+    '14:00', '15:00', '16:00', '17:00', '18:00'
   ];
 
   const showModal = () => {
-    const token = localStorage.getItem('token'); // Retrieve the token from local storage
+    const token = localStorage.getItem('token');
     if (token) {
-      setIsModalVisible(true); // Show the modal if the token exists
+      setIsModalVisible(true);
     } else {
-      console.error('Vous devez être connecté pour consulter.');
+      antdMessage.error('Vous devez être connecté pour consulter.');
       navigate(`/login?redirect=${location.pathname}`);
     }
   };
@@ -40,8 +44,8 @@ const AppointmentCalendar = () => {
     setSymptoms([]);
   };
 
-  const handleTimeChange = (e) => {
-    setSelectedTime(e.target.value);
+  const handleTimeChange = (slot) => {
+    setSelectedTime(slot);
   };
 
   const handleMessageChange = (e) => {
@@ -52,51 +56,33 @@ const AppointmentCalendar = () => {
     setSymptoms(checkedValues);
   };
 
-  const handleOk = async () => {
-    console.log('doctorId:', doctorId, 'patientId:', patientId);
-    if (selectedDate && selectedTime) {
-      const newAppointment = {
+  const handleOk = (form) => {
+    form.validateFields((err, values) => {
+      if (err) {
+        console.error('Validation error:', err);
+        return;
+      }
+      const consultationData = {
+        doctorId,
+        patientId,
         date: selectedDate.format('YYYY-MM-DD'),
         time: selectedTime,
-        message,
-        symptoms,
+        message: message,
+        symptoms: symptoms,
       };
-  
-      const appointmentExists = appointments.some(
-        (appointment) => appointment.date === newAppointment.date && appointment.time === newAppointment.time
-      );
-  
-      if (appointmentExists) {
-        antdMessage.error('An appointment already exists at this time.');
-      } else {
-        try {
-          const response = await axios.post('http://localhost:3000/consultation', {
-            doctor_id: doctorId,
-            patient_id: patientId,
-            date_consultation: `${newAppointment.date}T${newAppointment.time}:00.000Z`,
-            motif_consultation: message,
-            symptoms: symptoms.join(', '),
-          }, {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-  
-          if (response.status === 201) {
-            setAppointments([...appointments, newAppointment]);
-            setIsModalVisible(false);
-            setConfirmationVisible(true);
-          } else {
-            antdMessage.error('Error booking appointment. Please try again.');
-          }
-        } catch (error) {
-          antdMessage.error('Error booking appointment. Please try again.');
-          console.error('Error booking appointment:', error.response ? error.response.data : error.message);
-        }
-      }
-    }
+      // Send consultation data to backend for creation
+      axios.post('http://localhost:3000/consultations', consultationData)
+        .then(response => {
+          antdMessage.success('Consultation successfully created.');
+          setIsModalVisible(false);
+          setConfirmationVisible(true);
+        })
+        .catch(error => {
+          console.error('Error creating consultation:', error);
+          antdMessage.error('Error creating consultation. Please try again.');
+        });
+    });
   };
-  
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -110,7 +96,6 @@ const AppointmentCalendar = () => {
       <ul className="events">
         {currentDayAppointments.map((item, index) => (
           <li key={index}>
-            <Badge status="success" text={`${item.time}`} />
             <Badge status="success" text={`${item.time}`} />
             <Popconfirm
               title="Are you sure you want to delete this appointment?"
@@ -148,32 +133,37 @@ const AppointmentCalendar = () => {
   };
 
   const handleDelete = (appointmentToDelete) => {
-    setAppointments(appointments.filter(
+    const filteredAppointments = appointments.filter(
       (appointment) => !(appointment.date === appointmentToDelete.date && appointment.time === appointmentToDelete.time)
-    ));
+    );
+    setAppointments(filteredAppointments);
     antdMessage.success('Appointment successfully deleted.');
     setDeletionVisible(true);
   };
 
   return (
     <div>
-      <Button type="primary" open={isModalVisible} onClick={showModal} onOk={handleOk} onCancel={handleCancel} className="bg-indigo-500 w-900
-               dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-indigo-700
-                dark:hover:bg-gray-700 w-1/2 ">Consulter</Button>
+      <Button
+        type="primary"
+        onClick={showModal}
+        className="bg-indigo-500 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-indigo-700 dark:hover:bg-gray-700 w-1/2"
+      >
+        Consulter
+      </Button>
       <Modal
         title="Select a date, time and add a message"
-        open={isModalVisible}
-        onOk={handleOk}
+        visible={isModalVisible}
         onCancel={handleCancel}
         width={800}
         centered
         style={{ maxHeight: '70vh', overflowY: 'auto' }}
       >
+
         <Space direction="vertical" size={12} className="w-full">
           <Calendar
             fullscreen={false}
             onSelect={onSelectDate}
-            cellRender={dateCellRender}
+            dateCellRender={dateCellRender}
             className="bg-white p-4 rounded-lg shadow-md"
           />
           {selectedDate && (
@@ -184,11 +174,8 @@ const AppointmentCalendar = () => {
                 {getAvailableTimeSlots().map((slot) => (
                   <button
                     key={slot}
-                    value={slot}
-                    onClick={handleTimeChange}
-                    className={`m-2 p-2 border rounded ${
-                      selectedTime === slot ? 'bg-blue-500 text-white' : 'bg-gray-200'
-                    }`}
+                    onClick={() => handleTimeChange(slot)}
+                    className={`m-2 p-2 border rounded ${selectedTime === slot ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
                   >
                     {slot}
                   </button>
@@ -200,30 +187,28 @@ const AppointmentCalendar = () => {
                   label="Symptômes"
                   rules={[{ required: true, message: 'Veuillez décrire vos symptômes!' }]}
                 >
-                  <Checkbox.Group>
+                  <Checkbox.Group onChange={handleSymptomsChange}>
                     <Checkbox value="Cough">Toux</Checkbox>
                     <Checkbox value="Fever">Fièvre</Checkbox>
                     <Checkbox value="Headache">Mal de tête</Checkbox>
                     <Checkbox value="Fatigue">Fatigue</Checkbox>
                     <Checkbox value="Nausea">Nausée</Checkbox>
                     <Checkbox value="Vomiting">Vomissements</Checkbox>
+                    <Checkbox value="Diarrhea">Diarr</Checkbox>
                     <Checkbox value="Diarrhea">Diarrhée</Checkbox>
                     <Checkbox value="SoreThroat">Mal de gorge</Checkbox>
-                    <Checkbox value="ShortnessOfBreath">Essoufflement</Checkbox>
-                    <Checkbox value="ChestPain">Douleur à la poitrine</Checkbox>
-                    <Checkbox value="MusclePain">Douleur musculaire</Checkbox>
-                    <Checkbox value="Dizziness">Vertiges</Checkbox>
-                    <Checkbox value="LossOfTasteOrSmell">Perte de goût ou d'odorat</Checkbox>
+                    <Checkbox value="RunnyNose">Nez qui coule</Checkbox>
                     <Checkbox value="Other">Autre</Checkbox>
                   </Checkbox.Group>
                 </Form.Item>
+                <Form.Item
+                  name="message"
+                  label="Message"
+                  rules={[{ required: true, message: 'Veuillez ajouter un message!' }]}
+                >
+                  <TextArea rows={4} value={message} onChange={handleMessageChange} />
+                </Form.Item>
               </Form>
-              <TextArea
-                value={message}
-                onChange={handleMessageChange}
-                placeholder="Add a message"
-                rows={4}
-              />
             </>
           )}
         </Space>
@@ -231,11 +216,11 @@ const AppointmentCalendar = () => {
 
       <Modal
         title="Confirmation"
-        open={confirmationVisible}
+        visible={confirmationVisible}
         onOk={() => setConfirmationVisible(false)}
         onCancel={() => setConfirmationVisible(false)}
         footer={[
-          <Button key="ok" type="primary" onClick={() => setConfirmationVisible(false)}>
+          <Button key="ok" type="primary" onClick={() => handleOk()}>
             Ok
           </Button>
         ]}
@@ -247,8 +232,8 @@ const AppointmentCalendar = () => {
       </Modal>
 
       <Modal
-        title="Deletion Confirmation"
-        open={deletionVisible}
+        title="Suppression"
+        visible={deletionVisible}
         onOk={() => setDeletionVisible(false)}
         onCancel={() => setDeletionVisible(false)}
         footer={[
@@ -267,4 +252,3 @@ const AppointmentCalendar = () => {
 };
 
 export default AppointmentCalendar;
-
