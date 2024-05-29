@@ -3,12 +3,12 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Calendar, Modal, Badge, Input, Space, Button, message as antdMessage, Popconfirm, Form, Checkbox } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
-import axios from 'axios';
+import axios from 'axios'; // Not recommended for production due to security concerns
 
 const { TextArea } = Input;
 
 const AppointmentCalendar = () => {
-  const location = useLocation();
+
   const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -18,15 +18,15 @@ const AppointmentCalendar = () => {
   const [symptoms, setSymptoms] = useState([]);
   const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [deletionVisible, setDeletionVisible] = useState(false);
-  const [error, setError] = useState(null);
 
   const { doctorId, patientId } = useParams();
 
   const timeSlots = [
-    '08:00', '09:00', '10:00', '11:00', '12:00', '13:00',
+    '08:00', '09a:00', '10:00', '11:00', '12:00', '13:00',
     '14:00', '15:00', '16:00', '17:00', '18:00'
   ];
 
+  
   const showModal = () => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -56,39 +56,52 @@ const AppointmentCalendar = () => {
     setSymptoms(checkedValues);
   };
 
-  const handleOk = (form) => {
-    form.validateFields((err, values) => {
-      if (err) {
-        console.error('Validation error:', err);
-        return;
-      }
-      const consultationData = {
-        doctorId,
-        patientId,
-        date: selectedDate.format('YYYY-MM-DD'),
-        time: selectedTime,
-        message: message,
-        symptoms: symptoms,
-      };
-      // Send consultation data to backend for creation
-      axios.post('http://localhost:3000/consultations', consultationData)
-        .then(response => {
-          antdMessage.success('Consultation successfully created.');
-          setIsModalVisible(false);
-          setConfirmationVisible(true);
-        })
-        .catch(error => {
-          console.error('Error creating consultation:', error);
-          antdMessage.error('Error creating consultation. Please try again.');
-        });
-    });
-  };
+  const handleOk = async () => {
+    if (!selectedDate || !selectedTime) {
+      antdMessage.error('Veuillez sélectionner une date et une heure.');
+      return;
+    }
 
+    if (!patientId) {
+      antdMessage.error('Patient ID is not defined.');
+      return;
+    }
+
+    const consultationData = {
+      doctor_id: doctorId,
+      patient_id: patientId,
+      date_consultation: selectedDate.format('YYYY-MM-DD'),
+      motif_consultation: symptoms.join(', '),
+     
+
+    };
+
+    try {
+      const response = await axios.post('http://localhost:3000/consultation', consultationData);
+      console.log('Consultation created successfully:', response.data);
+      antdMessage.success('Consultation successfully created.');
+      setIsModalVisible(false);
+      
+
+      // Update appointments state to reflect the new appointment (assuming successful creation on backend)
+      setAppointments([...appointments, response.data]);
+    } catch (error) {
+      console.error('Error creating consultation:', error);
+      if (error.response) {
+        console.error('Response data:', error.response.data);
+        console.error('Response status:', error.response.status);
+        console.error('Response headers:', error.response.headers);
+      }
+
+        antdMessage.error('Error creating consultation. Please try again.');
+      };
+  };
+  
   const handleCancel = () => {
     setIsModalVisible(false);
   };
 
-  const dateCellRender = (value) => {
+  const cellRender = (value) => {
     const currentDayAppointments = appointments.filter(
       (appointment) => appointment.date === value.format('YYYY-MM-DD')
     );
@@ -157,13 +170,13 @@ const AppointmentCalendar = () => {
         width={800}
         centered
         style={{ maxHeight: '70vh', overflowY: 'auto' }}
+        onOk={handleOk} // Make sure to attach the handleOk function
       >
-
         <Space direction="vertical" size={12} className="w-full">
           <Calendar
             fullscreen={false}
             onSelect={onSelectDate}
-            dateCellRender={dateCellRender}
+            cellRender={cellRender}
             className="bg-white p-4 rounded-lg shadow-md"
           />
           {selectedDate && (
@@ -194,7 +207,6 @@ const AppointmentCalendar = () => {
                     <Checkbox value="Fatigue">Fatigue</Checkbox>
                     <Checkbox value="Nausea">Nausée</Checkbox>
                     <Checkbox value="Vomiting">Vomissements</Checkbox>
-                    <Checkbox value="Diarrhea">Diarr</Checkbox>
                     <Checkbox value="Diarrhea">Diarrhée</Checkbox>
                     <Checkbox value="SoreThroat">Mal de gorge</Checkbox>
                     <Checkbox value="RunnyNose">Nez qui coule</Checkbox>
@@ -220,7 +232,7 @@ const AppointmentCalendar = () => {
         onOk={() => setConfirmationVisible(false)}
         onCancel={() => setConfirmationVisible(false)}
         footer={[
-          <Button key="ok" type="primary" onClick={() => handleOk()}>
+          <Button key="ok" type="primary" onClick={() => setConfirmationVisible(false)}>
             Ok
           </Button>
         ]}
