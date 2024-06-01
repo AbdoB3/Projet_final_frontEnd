@@ -33,22 +33,18 @@ export default function Login() {
     try {
       const response = await axios.post('http://localhost:3000/patient/register', { firstName, lastName, email, password });
       const data = response.data;
-
-
+  
       console.log('Register successful');
       localStorage.setItem('token', data.token);
-      window.location.href = 'http://localhost:5173/dossier';
-
-      // Delay the original navigation to allow the dossier page to render first
-      setTimeout(() => {
-        navigate(redirectTo);
-      }, 2000); // A
+  
+      // Navigate to the dossier page with the original path as a query parameter
+      window.location.href = `http://localhost:5173/dossier?redirectTo=${encodeURIComponent(redirectTo)}`;
     } catch (error) {
       console.error('Register error:', error);
       setError('Registration failed. Please check your details and try again.');
     }
   };
-
+  
 
   const handleOnClick = (text) => {
     if (text !== type) {

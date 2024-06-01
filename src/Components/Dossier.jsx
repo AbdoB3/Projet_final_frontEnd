@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox, Select, message } from 'antd';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const { Option } = Select;
@@ -10,13 +11,23 @@ const MedicalForm = () => {
   const [showOtherMedications, setShowOtherMedications] = useState(false);
   const [showOtherDiseases, setShowOtherDiseases] = useState(false);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const redirectTo = searchParams.get('redirectTo');
+
   const onFinish = async (values) => {
     console.log('Received values of form: ', values);
-    
+
     try {
       const response = await axios.post('http://localhost:3000/medical', values);
       console.log('Form submitted successfully:', response.data);
       message.success('Form submitted successfully!');
+
+      // Redirect to the original path after successful form submission
+      if (redirectTo) {
+        navigate(redirectTo);
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
       message.error('Failed to submit the form. Please try again.');
@@ -32,30 +43,6 @@ const MedicalForm = () => {
           layout="vertical"
           onFinish={onFinish}
         >
-         
-      
-          {/* <Form.Item
-            name="symptoms"
-            label="Symptômes"
-            rules={[{ required: true, message: 'Veuillez décrire vos symptômes!' }]}
-          >
-            <Checkbox.Group>
-              <Checkbox value="Cough">Toux</Checkbox>
-              <Checkbox value="Fever">Fièvre</Checkbox>
-              <Checkbox value="Headache">Mal de tête</Checkbox>
-              <Checkbox value="Fatigue">Fatigue</Checkbox>
-              <Checkbox value="Nausea">Nausée</Checkbox>
-              <Checkbox value="Vomiting">Vomissements</Checkbox>
-              <Checkbox value="Diarrhea">Diarrhée</Checkbox>
-              <Checkbox value="SoreThroat">Mal de gorge</Checkbox>
-              <Checkbox value="ShortnessOfBreath">Essoufflement</Checkbox>
-              <Checkbox value="ChestPain">Douleur à la poitrine</Checkbox>
-              <Checkbox value="MusclePain">Douleur musculaire</Checkbox>
-              <Checkbox value="Dizziness">Vertiges</Checkbox>
-              <Checkbox value="LossOfTasteOrSmell">Perte de goût ou d'odorat</Checkbox>
-              <Checkbox value="Other">Autre</Checkbox>
-            </Checkbox.Group>
-          </Form.Item> */}
           <Form.Item
             name="allergies"
             label="Avez-vous des allergies ?"
