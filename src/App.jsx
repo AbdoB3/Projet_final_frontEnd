@@ -9,6 +9,9 @@ import Contact from './Components/Contact';
 import Registredoctor from './Components/Registredoctor';
 import Dossier from './Components/Dossier'
 import Doctorspage from './Components/Doctorspage';
+import Space from './Components/Space';
+import AppointmentCalendar from './Components/Calendrier'
+
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +28,9 @@ function App() {
           <Route path="/doctor/:id" element={<Doctorpage />} />
           <Route path="/doctors" element={<Doctorspage />} />
           <Route path="/dossier" element={<Dossier />} />
+          <Route path="/space" element={<Space />} />
+          <Route path="/appointment-calendar/:doctorId/:patientId" element={<AppointmentCalendar />} />
+
           {/* Add more routes here as needed */}
 
         </Routes>
