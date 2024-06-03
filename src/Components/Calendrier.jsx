@@ -65,33 +65,31 @@ const AppointmentCalendar = () => {
   };
 
   const handleOk = () => {
-  if (!selectedDate || !selectedTime) {
-    antdMessage.error('Veuillez sélectionner une date et une heure.');
-    return;
-  }
-  const consultationData = {
-    doctor_id,
-    patient_id,
-    date_consultation: selectedDate.format('YYYY-MM-DD'),
-    time: selectedTime,
-    motif_consultation: symptoms,
-     // Assuming a default price for now
-    consultation_type: 'presential', // Assuming a default consultation type
+    if (!selectedDate || !selectedTime) {
+      antdMessage.error('Veuillez sélectionner une date et une heure.');
+      return;
+    }
+    const consultationData = {
+      doctor_id,
+      patient_id,
+      date_consultation: selectedDate.format('YYYY-MM-DD'),
+      time: selectedTime,
+      motif_consultation: symptoms,
+    };
+
+    axios.post('http://localhost:3000/consultation', consultationData)
+      .then(response => {
+        antdMessage.success('Consultation successfully created.');
+        setIsModalVisible(false);
+        setConfirmationVisible(true);
+        // Refresh appointments after successful creation
+        fetchAppointments();
+      })
+      .catch(error => {
+        console.error('Error creating consultation:', error);
+        antdMessage.error('Error creating consultation. Please try again.');
+      });
   };
-
-  axios.post('http://localhost:3000/consultation', consultationData)
-    .then(response => {
-      antdMessage.success('Consultation successfully created.');
-      setIsModalVisible(false);
-      setConfirmationVisible(true);
-      fetchAppointments(); // Refresh appointments after successful creation
-    })
-    .catch(error => {
-      console.error('Error creating consultation:', error);
-      antdMessage.error('Error creating consultation. Please try again.');
-    });
-};
-
 
   const handleCancel = () => {
     setIsModalVisible(false);
