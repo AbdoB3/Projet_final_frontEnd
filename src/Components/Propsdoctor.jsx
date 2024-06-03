@@ -32,9 +32,11 @@ export default function Propsdoctor({ id, firstname , imageUrl, lastname, specia
           </h5>
         </div>
         <p className="mb-1 text-sm dark:text-neutral-200 text-blue-600/100">{speciality}</p>
+        <Link to={`/doctor/${id}`}>
         <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
           Prenez rendez-vous
         </button>
+        </Link>
       </div>
     </div>
   );

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation, Link } from 'react-router-dom';
-import { message } from 'antd';
+import { useParams, Link } from 'react-router-dom';
 import doctorimg from '../assets/doctor-img02.png';
-import AppointmentCalendar from './Calendrier'; 
+import AppointmentCalendar from './Calendrier';
 import Footer from './Footer';
 import axios from 'axios';
 import Navbar from './Navbar';
@@ -12,10 +11,7 @@ const Doctorpage = () => {
   const [doctor, setDoctor] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [patientId, setPatientId] = useState(localStorage.getItem('patient_id'));
 
-
-  const location = useLocation();
 
   useEffect(() => {
     const fetchDoctorDetail = async () => {
@@ -31,10 +27,6 @@ const Doctorpage = () => {
 
     fetchDoctorDetail();
   }, [id]);
-
-  useEffect(() => {
-    console.log('Patient ID from localStorage:', patientId);
-  }, [patientId]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -56,7 +48,7 @@ const Doctorpage = () => {
               <div className="mb-2"><span className="font-bold">Spécialité:</span> {doctor?.speciality}</div>
               <div className="mb-2"><span className="font-bold">Expérience:</span> {doctor?.experience} ans</div>
               <div className="mb-2"><span className="font-bold">Prix:</span> {doctor?.feePer}$</div>
-              <AppointmentCalendar doctorId={id} patientId={patientId} />
+              <AppointmentCalendar doctorId={id} doctor={doctor}  />
             </div>
             <div className="md:flex-1 ml-10 mt-16">
               <h2 className="text-xl font-bold text-gray-800">Numéro de téléphone</h2>

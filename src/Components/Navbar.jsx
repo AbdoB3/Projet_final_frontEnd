@@ -43,113 +43,133 @@ export default function Navbar() {
                 </div>
                 <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                     {isLoggedIn ? (
-                        <button
-                            type="button"
-                            className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                            onClick={handleLogout}
-                        >
-                            Logout
-                        </button>
-                    ) : (
                         <>
-                            <div className="hidden md:block">
+                              <Link to="/space">
+                         
+                         <button
+                             type="button"
+                             className="text-white bg-gradient-to-r
+                          from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4
+                           focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                             onClick={handleLogout}
+                         >
+                        mon espace
+                         </button>
+                       
+                   </Link>
+                            <button
+                                type="button"
+                                className="text-white bg-gradient-to-r
+                             from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4
+                              focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </button>
+                      
+
+
+                </>
+                ) : (
+                <>
+                    <div className="hidden md:block">
+                        <Link to="/login">
+                            <button
+                                type="button"
+                                className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                            >
+                                Login
+                            </button>
+                        </Link>
+                        <Link to="/registerdoctor">
+                            <button
+                                type="button"
+                                className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                            >
+                                Vous Etes Doctors ?
+                            </button>
+                        </Link>
+                    </div>
+                </>
+                    )}
+                <button
+                    type="button"
+                    className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="navbar-cta"
+                    aria-expanded={isNavOpen ? "true" : "false"}
+                    onClick={toggleNav}
+                >
+                    <span className="sr-only">Open main menu</span>
+                    <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
+                    </svg>
+                </button>
+            </div>
+            <div className={`w-full md:flex md:w-auto ${isNavOpen ? 'block' : 'hidden'}`} id="navbar-default">
+                <ul className="font-medium flex flex-col md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li>
+                        <a
+                            href="/"
+                            className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${activeLink === "home" ? "text-blue-700" : "text-gray-900"}`}
+                            onClick={() => scrollToSection("home")}
+                        >
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/#about"
+                            className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${activeLink === "about" ? "text-blue-700" : "text-gray-900"}`}
+                            onClick={() => scrollToSection("about")}
+                        >
+                            About
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/#services"
+                            className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${activeLink === "services" ? "text-blue-700" : "text-gray-900"}`}
+                            onClick={() => scrollToSection("services")}
+                        >
+                            Services
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#contact"
+                            className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${activeLink === "contact" ? "text-blue-700" : "text-gray-900"}`}
+                            onClick={() => scrollToSection("contact")}
+                        >
+                            Contact
+                        </a>
+                    </li>
+                    {!isLoggedIn && (
+                        <>
+                            <li>
                                 <Link to="/login">
                                     <button
                                         type="button"
-                                        className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                                        className="md:hidden text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                                     >
                                         Login
                                     </button>
                                 </Link>
+                            </li>
+                            <li>
                                 <Link to="/registerdoctor">
                                     <button
                                         type="button"
-                                        className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                                        className="md:hidden text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                                     >
                                         Vous Etes Doctors ?
                                     </button>
                                 </Link>
-                            </div>
+                            </li>
                         </>
                     )}
-                    <button
-                        type="button"
-                        className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                        aria-controls="navbar-cta"
-                        aria-expanded={isNavOpen ? "true" : "false"}
-                        onClick={toggleNav}
-                    >
-                        <span className="sr-only">Open main menu</span>
-                        <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
-                        </svg>
-                    </button>
-                </div>
-                <div className={`w-full md:flex md:w-auto ${isNavOpen ? 'block' : 'hidden'}`} id="navbar-default">
-                    <ul className="font-medium flex flex-col md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                        <li>
-                            <a
-                                href="/"
-                                className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${activeLink === "home" ? "text-blue-700" : "text-gray-900"}`}
-                                onClick={() => scrollToSection("home")}
-                            >
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/#about"
-                                className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${activeLink === "about" ? "text-blue-700" : "text-gray-900"}`}
-                                onClick={() => scrollToSection("about")}
-                            >
-                                About
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/#services"
-                                className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${activeLink === "services" ? "text-blue-700" : "text-gray-900"}`}
-                                onClick={() => scrollToSection("services")}
-                            >
-                                Services
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#contact"
-                                className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${activeLink === "contact" ? "text-blue-700" : "text-gray-900"}`}
-                                onClick={() => scrollToSection("contact")}
-                            >
-                                Contact
-                            </a>
-                        </li>
-                        {!isLoggedIn && (
-                            <>
-                                <li>
-                                    <Link to="/login">
-                                        <button
-                                            type="button"
-                                            className="md:hidden text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                                        >
-                                            Login
-                                        </button>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/registerdoctor">
-                                        <button
-                                            type="button"
-                                            className="md:hidden text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                                        >
-                                            Vous Etes Doctors ?
-                                        </button>
-                                    </Link>
-                                </li>
-                            </>
-                        )}
-                    </ul>
-                </div>
+                </ul>
             </div>
-        </nav>
+        </div>
+        </nav >
     );
 }
