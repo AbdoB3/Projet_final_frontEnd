@@ -101,6 +101,7 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
         fetchAppointments();
         setOpenModal(false);
         setSuccessMessageVisible(true);
+        navigate('/PatientConsultations')
       }
     } catch (error) {
       if (error.response) {
