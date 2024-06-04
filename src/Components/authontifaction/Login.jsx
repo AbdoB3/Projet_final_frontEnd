@@ -19,7 +19,6 @@ export default function Login() {
       const response = await axios.post('http://localhost:3000/patient/login', { email, password });
       const data = response.data;
 
-
       console.log('Login successful');
       localStorage.setItem('token', data.token);
       navigate(redirectTo);
@@ -29,14 +28,14 @@ export default function Login() {
     }
   };
 
-  const handleRegister = async (firstName, lastName, email, password) => {
+  const handleRegister = async (firstName, lastName, sexe, adresse, email, password, date_nais) => {
     try {
-      const response = await axios.post('http://localhost:3000/patient/register', { firstName, lastName, email, password });
+      const response = await axios.post('http://localhost:3000/patient/register', { firstName, lastName, sexe, adresse, email, password, date_nais });
       const data = response.data;
-  
+
       console.log('Register successful');
       localStorage.setItem('token', data.token);
-  
+
       // Navigate to the dossier page with the original path as a query parameter
       window.location.href = `http://localhost:5173/dossier?redirectTo=${encodeURIComponent(redirectTo)}`;
     } catch (error) {
@@ -44,7 +43,6 @@ export default function Login() {
       setError('Registration failed. Please check your details and try again.');
     }
   };
-  
 
   const handleOnClick = (text) => {
     if (text !== type) {
@@ -61,8 +59,7 @@ export default function Login() {
         <div id="container" className={containerClass}>
           <SignUpForm handleRegister={handleRegister} />
           <SignInForm handleLogin={handleLogin} />
-          
-          
+
           <div className="overlay-container">
             <div className="overlay">
               <div className="overlay-panel overlay-left">

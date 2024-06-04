@@ -37,7 +37,7 @@ const MedicalForm = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="p-7 max-w-5xl w-full bg-white rounded-xl shadow-lg space-y-4 overflow-y-auto max-h-[95vh]">
-        <h1 className="text-2xl font-bold">Formulaire Médical</h1>
+        <h1 className="text-2xl font-bold">Formulaire Médicale</h1>
         <Form
           name="medical_form"
           layout="vertical"

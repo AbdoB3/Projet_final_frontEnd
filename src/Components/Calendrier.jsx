@@ -7,7 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 
 const { TextArea } = Input;
 
-export const AppointmentCalendar = ({ doctorId, doctor }) => {
+export const CalendrierRendezVous = ({ doctorId, doctor }) => {
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -26,11 +26,11 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
       const decodedToken = jwtDecode(token);
       patientId = decodedToken.userId;
     } catch (error) {
-      console.error('Error decoding token:', error);
+      console.error('Erreur de décodage du token:', error);
     }
   }
 
-  const timeSlots = [
+  const tranchesHoraires = [
     '08:00', '09:00', '10:00', '11:00', '12:00', '13:00',
     '14:00', '15:00', '16:00', '17:00', '18:00'
   ];
@@ -41,8 +41,8 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
         const response = await axios.get('http://localhost:3000/consultation');
         setAppointments(response.data);
       } catch (error) {
-        console.error('Error fetching appointments:', error);
-        antdMessage.error('Error fetching appointments. Please try again.');
+        console.error('Erreur lors de la récupération des rendez-vous:', error);
+        antdMessage.error('Erreur lors de la récupération des rendez-vous. Veuillez réessayer.');
       }
     };
 
@@ -82,14 +82,14 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
       return;
     }
   
-    const consultationPrice = doctor?.feePer || 0;
+    const prixConsultation = doctor?.feePer || 0;
   
     const consultationData = {
       doctor_id: doctorId,
       patient_id: patientId,
       date_consultation: selectedDate.format('YYYY-MM-DD'),
       time: selectedTime,
-      price: consultationPrice,
+      price: prixConsultation,
       motif_consultation: symptoms,
       consultation_type: 'online',
     };
@@ -97,21 +97,21 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
     try {
       const response = await axios.post('http://localhost:3000/consultation', consultationData);
       if (response.status === 200) {
-        antdMessage.success('Consultation successfully created.');
+        antdMessage.success('Consultation créée avec succès.');
         fetchAppointments();
         setOpenModal(false);
         setSuccessMessageVisible(true);
       }
     } catch (error) {
       if (error.response) {
-        console.error('Server responded with error:', error.response.data);
-        antdMessage.error('Failed to create consultation. Please try again.');
+        console.error('Le serveur a répondu avec une erreur:', error.response.data);
+        antdMessage.error('Échec de la création de la consultation. Veuillez réessayer.');
       } else if (error.request) {
-        console.error('No response received:', error.request);
-        antdMessage.error('No response received from server. Please try again later.');
+        console.error('Aucune réponse reçue:', error.request);
+        antdMessage.error('Aucune réponse du serveur. Veuillez réessayer plus tard.');
       } else {
-        console.error('Error setting up request:', error.message);
-        antdMessage.error('An error occurred. Please try again later.');
+        console.error('Erreur lors de la configuration de la requête:', error.message);
+        antdMessage.error('Une erreur est survenue. Veuillez réessayer plus tard.');
       }
     }
   };
@@ -130,12 +130,12 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
           <li key={index}>
             <Badge status="success" text={`${item.time}`} />
             <Popconfirm
-              title="Are you sure you want to delete this appointment?"
+              title="Êtes-vous sûr de vouloir supprimer ce rendez-vous ?"
               onConfirm={() => handleDelete(item)}
-              okText="Yes"
-              cancelText="No"
+              okText="Oui"
+              cancelText="Non"
             >
-              <Button type="link" danger>Delete</Button>
+              <Button type="link" danger>Supprimer</Button>
             </Popconfirm>
           </li>
         ))}
@@ -151,7 +151,7 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
       (appointment) => appointment.date_consultation === selectedDateStr
     );
 
-    const availableSlots = timeSlots.filter((slot) => {
+    const availableSlots = tranchesHoraires.filter((slot) => {
       const [hour, minute] = slot.split(':').map(Number);
       const slotTime = moment(selectedDate).hours(hour).minutes(minute);
       return currentDayAppointments.every((appointment) => {
@@ -167,14 +167,14 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
   const handleDelete = async (appointmentToDelete) => {
     try {
       const response = await axios.delete(`http://localhost:3000/consultation/${appointmentToDelete._id}`);
-      antdMessage.success('Appointment successfully deleted.');
+      antdMessage.success('Rendez-vous supprimé avec succès.');
       setAppointments(appointments.filter(
         (appointment) => appointment._id !== appointmentToDelete._id
       ));
       setDeletionVisible(true);
     } catch (error) {
-      console.error('Error deleting appointment:', error);
-      antdMessage.error('Error deleting appointment. Please try again.');
+      console.error('Erreur lors de la suppression du rendez-vous:', error);
+      antdMessage.error('Erreur lors de la suppression du rendez-vous. Veuillez réessayer.');
     }
   };
 
@@ -188,7 +188,7 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
         Consulter
       </Button>
       <Modal
-        title="Select a date, time and add a message"
+        title="Sélectionnez une date, une heure et ajoutez un message"
         open={openModal}
         onCancel={handleCancel}
         width={800}
@@ -208,7 +208,7 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
             {selectedDate && (
               <>
                 <h3>Date: {selectedDate.format('YYYY-MM-DD')}</h3>
-                <h4>Available Time Slots:</h4>
+                <h4>Tranches Horaires Disponibles :</h4>
                 <div className="flex flex-wrap">
                   {getAvailableTimeSlots().map((slot) => (
                     <button
@@ -227,27 +227,27 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
                     rules={[{ required: true, message: 'Veuillez décrire vos symptômes!' }]}
                   >
                     <Checkbox.Group onChange={handleSymptomsChange}>
-                      <Checkbox value="Cough">Toux</Checkbox>
-                      <Checkbox value="Fever">Fièvre</Checkbox>
-                      <Checkbox value="Headache">Mal de tête</Checkbox>
+                      <Checkbox value="Toux">Toux</Checkbox>
+                      <Checkbox value="Fièvre">Fièvre</Checkbox>
+                      <Checkbox value="Mal de tête">Mal de tête</Checkbox>
                       <Checkbox value="Fatigue">Fatigue</Checkbox>
-                      <Checkbox value="Nausea">Nausée</Checkbox>
-                      <Checkbox value="Vomiting">Vomissements</Checkbox>
-                      <Checkbox value="Diarrhea">Diarrhée</Checkbox>
-                      <Checkbox value="SoreThroat">Mal de gorge</Checkbox>
-                      <Checkbox value="RunnyNose">Nez qui coule</Checkbox>
-                      <Checkbox value="ChestPain">Douleur thoracique</Checkbox>
-                      <Checkbox value="DifficultyBreathing">Difficulté à respirer</Checkbox>
-                      <Checkbox value="Other">Autre</Checkbox>
+                      <Checkbox value="Nausée">Nausée</Checkbox>
+                      <Checkbox value="Vomissements">Vomissements</Checkbox>
+                      <Checkbox value="Diarrhée">Diarrhée</Checkbox>
+                      <Checkbox value="Mal de gorge">Mal de gorge</Checkbox>
+                      <Checkbox value="Nez qui coule">Nez qui coule</Checkbox>
+                      <Checkbox value="Douleur thoracique">Douleur thoracique</Checkbox>
+                      <Checkbox value="Difficulté à respirer">Difficulté à respirer</Checkbox>
+                      <Checkbox value="Autre">Autre</Checkbox>
                     </Checkbox.Group>
                   </Form.Item>
-                  <Form.Item
+                  {/* <Form.Item
                     name="message"
                     label="Message"
                     rules={[{ required: true, message: 'Veuillez ajouter un message!' }]}
                   >
                     <TextArea rows={4} value={message} onChange={handleMessageChange} />
-                  </Form.Item>
+                  </Form.Item> */}
                 </Form>
               </>
             )}
@@ -259,35 +259,34 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
           onOk={() => setConfirmationVisible(false)}
           onCancel={() => setConfirmationVisible(false)}
           okText="OK"
-          cancelText="Cancel"
+          cancelText="Annuler"
         >
-          <p>Your appointment has been successfully created!</p>
+          <p>Votre rendez-vous a été créé avec succès !</p>
         </Modal>
         <Modal
-          title="Deletion Confirmation"
+          title="Confirmation de suppression"
           visible={deletionVisible}
           onOk={() => setDeletionVisible(false)}
           onCancel={() => setDeletionVisible(false)}
           okText="OK"
-          cancelText="Cancel"
+          cancelText="Annuler"
         >
-          <p>Your appointment has been successfully deleted!</p>
+          <p>Votre rendez-vous a été supprimé avec succès !</p>
         </Modal>
         <Modal
-          title="Success"
+          title="Succès"
           visible={successMessageVisible}
           onCancel={() => setSuccessMessageVisible(false)}
           onOk={() => setSuccessMessageVisible(false)}
         >
-          <p>Your appointment has been successfully created!</p>
+          <p>Votre rendez-vous a été créé avec succès !</p>
         </Modal>
       </div>
     );
   };
   
   const Calendrier = ({ doctorId, doctor }) => {
-    return <AppointmentCalendar doctorId={doctorId} doctor={doctor} />;
+    return <CalendrierRendezVous doctorId={doctorId} doctor={doctor} />;
   };
   
   export default Calendrier;
-  
