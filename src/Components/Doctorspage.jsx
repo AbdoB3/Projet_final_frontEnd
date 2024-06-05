@@ -144,7 +144,7 @@ const App = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/doctors', {
+        const res = await axios.get('http://localhost:3000/doctors/filter', {
           params: {
             gender: selectedGender,
             speciality: selectedSpeciality,

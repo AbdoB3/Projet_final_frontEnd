@@ -86,12 +86,14 @@ const handleOk = async () => {
     return;
   }
 
+  const combinedDateTime = moment(selectedDate.format('YYYY-MM-DD') + ' ' + selectedTime, 'YYYY-MM-DD HH:mm');
+
   const consultationPrice = doctor?.feePer || 0;
 
   const consultationData = {
     doctor_id: doctorId,
     patient_id: patientId,
-    date_consultation: selectedDate.format('YYYY-MM-DD'),
+    date_consultation: combinedDateTime.toISOString(),
     time: selectedTime,
     price: consultationPrice,
     motif_consultation: symptoms,
