@@ -5,10 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 const Registre = () => {
   const token = localStorage.getItem('token');
   const [form] = Form.useForm();
+  const navigate = useNavigate();
   const [formm, setFormm] = useState({
     _id: "",
     firstname: "",
@@ -45,6 +47,8 @@ const Registre = () => {
       });
 
       message.success('Informations sur le médecin enregistrées avec succès.');
+      //redirecte page home
+      navigate('/');
     } catch (error) {
       console.error('Erreur lors de l\'enregistrement des informations sur le médecin :', error);
       message.error('Échec de l\'enregistrement des informations sur le médecin.');
