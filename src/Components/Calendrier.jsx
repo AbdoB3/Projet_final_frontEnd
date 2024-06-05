@@ -7,7 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 
 const { TextArea } = Input;
 
-export const AppointmentCalendar = ({ doctorId, doctor }) => {
+export const CalendrierRendezVous = ({ doctorId, doctor }) => {
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -28,11 +28,11 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
       const decodedToken = jwtDecode(token);
       patientId = decodedToken.userId;
     } catch (error) {
-      console.error('Error decoding token:', error);
+      console.error('Erreur de décodage du token:', error);
     }
   }
 
-  const timeSlots = [
+  const tranchesHoraires = [
     '08:00', '09:00', '10:00', '11:00', '12:00', '13:00',
     '14:00', '15:00', '16:00', '17:00', '18:00'
   ];
@@ -43,8 +43,8 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
         const response = await axios.get('http://localhost:3000/consultation');
         setAppointments(response.data);
       } catch (error) {
-        console.error('Error fetching appointments:', error);
-        antdMessage.error('Error fetching appointments. Please try again.');
+        console.error('Erreur lors de la récupération des rendez-vous:', error);
+        antdMessage.error('Erreur lors de la récupération des rendez-vous. Veuillez réessayer.');
       }
     };
 
@@ -136,12 +136,12 @@ const handleOk = async () => {
           <li key={index}>
             <Badge status="success" text={`${item.time}`} />
             <Popconfirm
-              title="Are you sure you want to delete this appointment?"
+              title="Êtes-vous sûr de vouloir supprimer ce rendez-vous ?"
               onConfirm={() => handleDelete(item)}
-              okText="Yes"
-              cancelText="No"
+              okText="Oui"
+              cancelText="Non"
             >
-              <Button type="link" danger>Delete</Button>
+              <Button type="link" danger>Supprimer</Button>
             </Popconfirm>
           </li>
         ))}
@@ -157,7 +157,7 @@ const handleOk = async () => {
       (appointment) => appointment.date_consultation === selectedDateStr
     );
 
-    const availableSlots = timeSlots.filter((slot) => {
+    const availableSlots = tranchesHoraires.filter((slot) => {
       const [hour, minute] = slot.split(':').map(Number);
       const slotTime = moment(selectedDate).hours(hour).minutes(minute);
       return currentDayAppointments.every((appointment) => {
@@ -184,7 +184,7 @@ const handleOk = async () => {
       </Button>
  
       <Modal
-        title="Select a date, time and add a message"
+        title="Sélectionnez une date, une heure et ajoutez un message"
         open={openModal}
         onCancel={handleCancel}
         width={800}
