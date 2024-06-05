@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import doctorimg from '../assets/doctor-img02.png';
 import AppointmentCalendar from './Calendrier';
 import Footer from './Footer';
+import PatientConsultations from './PatientConsultations'; // Import PatientConsultations component
 import axios from 'axios';
 import Navbar from './Navbar';
 
@@ -11,7 +12,7 @@ const Doctorpage = () => {
   const [doctor, setDoctor] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
+ 
 
   useEffect(() => {
     const fetchDoctorDetail = async () => {
@@ -31,6 +32,9 @@ const Doctorpage = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
+  // Define doctorName based on doctor object
+  const doctorName = doctor ? `${doctor.firstname} ${doctor.lastname}` : "Médecin";
+
   return (
     <>
       <Navbar />
@@ -42,13 +46,14 @@ const Doctorpage = () => {
               <img className="h-96 w-full object-cover rounded-lg" src={doctorimg} alt="Image du médecin" />
             </div>
             <div className="md:flex-1 mt-5">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">{doctor?.firstname} {doctor?.lastname}</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">{doctorName}</h2>
               <p className="text-justify mb-3">{doctor?.description}</p>
               <div className="mb-2"><span className="font-bold">Sexe:</span> {doctor?.sexe}</div>
-              <div className="mb-2"><span className="font-bold">Spécialité:</span> {doctor?.speciality}</div>
+              <div className="mb-2"><span className="font-bold">Spéciaalité:</span> {doctor?.speciality}</div>
               <div className="mb-2"><span className="font-bold">Expérience:</span> {doctor?.experience} ans</div>
               <div className="mb-2"><span className="font-bold">Prix:</span> {doctor?.feePer}$</div>
               <AppointmentCalendar doctorId={id} doctor={doctor}  />
+        
             </div>
             <div className="md:flex-1 ml-10 mt-16">
               <h2 className="text-xl font-bold text-gray-800">Numéro de téléphone</h2>
