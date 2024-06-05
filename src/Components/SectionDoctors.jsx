@@ -16,7 +16,7 @@ export default function SectionDoctors({ searchTerm }) {
 
     const fetchDoctors = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/doctors`);
+            const response = await axios.get(`http://localhost:3000/doctors/filter`);
             const doctorsData = response.data.doctors;
             const activeDoctors = doctorsData.filter(doctor => doctor.state === 'active').slice(0, 3);
             setDoctors(activeDoctors);
