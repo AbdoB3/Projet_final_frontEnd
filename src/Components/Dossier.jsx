@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Checkbox, Select, message } from 'antd';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 const { Option } = Select;
 
@@ -10,17 +11,23 @@ const MedicalForm = () => {
   const [showOtherOperations, setShowOtherOperations] = useState(false);
   const [showOtherMedications, setShowOtherMedications] = useState(false);
   const [showOtherDiseases, setShowOtherDiseases] = useState(false);
+ 
 
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const redirectTo = searchParams.get('redirectTo');
+  const patientId = searchParams.get('idPat');
+
 
   const onFinish = async (values) => {
     console.log('Received values of form: ', values);
-
+    const dataToSend = {
+      ...values,
+      patientId: patientId  // Include the patientId in the request body
+    };
     try {
-      const response = await axios.post('http://localhost:3000/medical', values);
+      const response = await axios.post('http://localhost:3000/medical', dataToSend);
       console.log('Form submitted successfully:', response.data);
       message.success('Form submitted successfully!');
 
