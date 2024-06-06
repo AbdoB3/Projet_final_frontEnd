@@ -3,11 +3,10 @@ import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-
 const RadioButtonsGroup = ({ selectedGender, setSelectedGender }) => {
   return (
     <div className="border rounded-md p-4 w-full mx-auto max-w-2xl bg-[#F2F4FF] mt-5">
-      <h4 className="text-lg lg:text-2xl font-semibold">Gender</h4>
+      <h4 className="text-lg lg:text-2xl font-semibold">Genre</h4>
       <div>
         <label className="flex bg-gray-300 text-gray-700 rounded-md px-3 py-2 my-3 hover:bg-indigo-300 cursor-pointer">
           <input
@@ -40,7 +39,7 @@ const SpecialiteButtonGroup = ({ selectedSpeciality, setSelectedSpeciality, spec
   return (
     <div className="w-full max-w-md mx-auto">
       <div className="bg-gray-100 shadow-md rounded-md p-6">
-        <h3 className="text-lg font-bold mb-4">Specialité</h3>
+        <h3 className="text-lg font-bold mb-4">Spécialité</h3>
         <div className="space-y-2">
           {specialities.map((speciality) => (
             <div key={speciality._id} className="mb-2 flex items-start">
@@ -158,12 +157,12 @@ const App = () => {
         if (Array.isArray(doctors)) {
           setDoctors(doctors.filter(doctor => doctor.state === 'active'));
         } else {
-          console.error('Unexpected response structure:', res.data);
+          console.error('Structure de réponse inattendue:', res.data);
           setDoctors([]); 
         }
         setTotalDoctors(res.data.total);
       } catch (error) {
-        console.error('Error fetching doctors:', error);
+        console.error('Erreur lors de la récupération des médecins:', error);
       }
     };
 
@@ -176,7 +175,7 @@ const App = () => {
         const res = await axios.get('http://localhost:3000/speciality');
         setSpecialities(res.data);
       } catch (error) {
-        console.error('Error fetching specialities:', error);
+        console.error('Erreur lors de la récupération des spécialités:', error);
       }
     };
 
@@ -187,7 +186,7 @@ const App = () => {
     <div className="bg-indigo-100">
       <Navbar />
       <div className="text-center p-10">
-        <h2 className="font-bold text-3xl mt-5 mb-5">Meet our Doctors</h2>
+        <h2 className="font-bold text-3xl mt-5 mb-5">Rencontrez nos médecins</h2>
         <div className="flex">
           <div className="mr-10 mt-20">
             <SpecialiteButtonGroup

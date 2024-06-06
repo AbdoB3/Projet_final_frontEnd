@@ -29,7 +29,7 @@ const MyComponent = () => {
 
   return (
     <div className="p-10 bg-indigo-100">
-      <h2 className="text-3xl font-bold mb-6 p-4 text-center">Meet Our Specialists</h2>
+      <h2 className="text-3xl font-bold mb-6 p-4 text-center">Rencontrez nos spécialistes</h2>
       <div className="flex flex-wrap justify-center"> {/* Updated to flex-wrap */}
         {doctors.map((doctor, index) => (
           <DoctorCard key={index} {...doctor} />

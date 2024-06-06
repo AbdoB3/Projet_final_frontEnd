@@ -70,12 +70,10 @@ export default function Navbar() {
                             </Link>
                             <button
                                 type="button"
-                                className="text-white bg-gradient-to-r
-                                from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4
-                                focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                                className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                                 onClick={handleLogout}
                             >
-                                Logout
+                                Se Déconnecter
                             </button>
                         </>
                     ) : (
@@ -86,7 +84,7 @@ export default function Navbar() {
                                         type="button"
                                         className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                                     >
-                                        Login
+                                        Se Connecter
                                     </button>
                                 </Link>
                                 <Link to="/registerdoctor">
@@ -94,7 +92,7 @@ export default function Navbar() {
                                         type="button"
                                         className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                                     >
-                                        Vous Etes Doctors ?
+                                        Vous Êtes Docteur ?
                                     </button>
                                 </Link>
                             </div>
@@ -107,7 +105,7 @@ export default function Navbar() {
                         aria-expanded={isNavOpen ? "true" : "false"}
                         onClick={toggleNav}
                     >
-                        <span className="sr-only">Open main menu</span>
+                        <span className="sr-only">Ouvrir le menu principal</span>
                         <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
                         </svg>
@@ -121,7 +119,7 @@ export default function Navbar() {
                                 className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${activeLink === "home" ? "text-blue-700" : "text-gray-900"}`}
                                 onClick={() => scrollToSection("home")}
                             >
-                                Home
+                                Accueil
                             </a>
                         </li>
                         <li>
@@ -130,7 +128,7 @@ export default function Navbar() {
                                 className={`block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent ${activeLink === "about" ? "text-blue-700" : "text-gray-900"}`}
                                 onClick={() => scrollToSection("about")}
                             >
-                                About
+                                À Propos
                             </a>
                         </li>
                         <li>
@@ -159,7 +157,7 @@ export default function Navbar() {
                                             type="button"
                                             className="md:hidden text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                                         >
-                                            Login
+                                            Se Connecter
                                         </button>
                                     </Link>
                                 </li>
@@ -169,7 +167,7 @@ export default function Navbar() {
                                             type="button"
                                             className="md:hidden text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                                         >
-                                            Vous Etes Doctors ?
+                                            Vous Êtes Docteur ?
                                         </button>
                                     </Link>
                                 </li>

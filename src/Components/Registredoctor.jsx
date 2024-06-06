@@ -92,9 +92,9 @@ const Registre = () => {
   };
 
   return (
-    <div className="p-5 border-2 shadow-lg border-grey-300 rounded" style={{ height: "100vh" }}>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <h2 className="text-2xl font-bold mb-3 text-center text-blue-500" style={{ alignItems: 'center' }}>
+    <div className="p-5 border-2 shadow-lg border-gray-300 rounded bg-gray-50" style={{ height: "100vh" }}>
+      <div className="flex justify-center">
+        <h2 className="text-2xl font-bold mb-28 text-center text-blue-500" >
           Rejoignez-nous
         </h2>
       </div>
@@ -113,7 +113,7 @@ const Registre = () => {
             <img
               src={formm.imageUrl}
               alt="Image de profil"
-              className="rounded-full w-[150px] h-[150px] mb-5"
+              className="rounded-full w-36 h-36 mb-5"
             />
           </div>
         )}
@@ -172,12 +172,12 @@ const Registre = () => {
             </Upload>
           </Form.Item>
         </div>
-        <Form.Item wrapperCol={{ offset: 1, span: 18 }}>
+        <Form.Item wrapperCol={{ offset: 20, span: 18 }}>
+          <Button type="default" htmlType="button" className="mr-2" onClick={handleCancel}>
+            Annuler
+          </Button>
           <Button type="primary" htmlType="submit" icon={<FontAwesomeIcon icon={faSave} />}>
             Enregistrer
-          </Button>
-          <Button type="default" htmlType="button" className="ml-2" onClick={handleCancel}>
-            Annuler
           </Button>
         </Form.Item>
       </Form>

@@ -29,7 +29,7 @@ const Doctorpage = () => {
     fetchDoctorDetail();
   }, [id]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div>Chargement...</div>;
   if (error) return <div>{error}</div>;
 
   // Define doctorName based on doctor object

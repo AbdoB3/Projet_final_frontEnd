@@ -4,8 +4,11 @@ function SignUpForm({ handleRegister }) {
   const [state, setState] = React.useState({
     firstName: "",
     lastName: "",
+    sexe: "",
+    city: "",  
+    phone: "",
     email: "",
-    password: ""
+    password: "",
   });
 
   const handleChange = (evt) => {
@@ -18,45 +21,67 @@ function SignUpForm({ handleRegister }) {
 
   const handleOnSubmit = (evt) => {
     evt.preventDefault();
-    const { firstName, lastName, email, password } = state;
-    handleRegister(firstName, lastName, email, password);
+    const { firstName, lastName, sexe, city, email, password, phone } = state;
+    handleRegister(firstName, lastName, sexe, city, email, password, phone);
     setState({
       firstName: "",
       lastName: "",
+      sexe: "",
+      city: "", 
+      phone: "",
       email: "",
-      password: ""
+      password: "",
     });
   };
 
   return (
     <div className="form-container sign-up-container">
       <form onSubmit={handleOnSubmit}>
-        <h1>Create Account</h1>
-        <div className="social-container">
-          <a href="#" className="social">
-            <i className="fab fa-facebook-f" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-google-plus-g" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-linkedin-in" />
-          </a>
-        </div>
-        <span>or use your email for registration</span>
+        {/* <h1>Créer un compte</h1> */}
         <input
           type="text"
           name="firstName"
           value={state.firstName}
           onChange={handleChange}
-          placeholder="First Name"
+          placeholder="Prénom"
+          required
         />
         <input
           type="text"
           name="lastName"
           value={state.lastName}
           onChange={handleChange}
-          placeholder="Last Name"
+          placeholder="Nom"
+          required
+        />
+    
+    <select
+          name="sexe"
+          value={state.sexe}
+          onChange={handleChange}
+          className="custom-select"
+          required
+        >
+          <option value="">Sélectionner le sexe</option>
+          <option value="homme">Homme</option>
+          <option value="femme">Femme</option>
+        </select>
+
+        <input
+          type="text"
+          name="phone"
+          value={state.phone}
+          onChange={handleChange}
+          placeholder="Phone number"
+          required
+        />
+        <input
+          type="text"
+          name="city"
+          value={state.city}
+          onChange={handleChange}
+          placeholder="City"
+          required
         />
         <input
           type="email"
@@ -64,15 +89,17 @@ function SignUpForm({ handleRegister }) {
           value={state.email}
           onChange={handleChange}
           placeholder="Email"
+          required
         />
         <input
           type="password"
           name="password"
           value={state.password}
           onChange={handleChange}
-          placeholder="Password"
-        />
-        <button>Sign Up</button>
+          placeholder="Mot de passe"
+          required
+        />  
+        <button type="submit">S'inscrire</button>
       </form>
     </div>
   );

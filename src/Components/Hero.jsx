@@ -49,7 +49,7 @@ const Hero = ({ handleSearchSubmit, handleSearchInputChange, suggestions }) => {
             <div className="text-white text-center grid bg-cover bg-no-repeat"
                 style={{ backgroundImage: `url(${heroImage})`, height: '110vh', width: '100%', backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 <div className="col-start-1 row-start-1 bg-gray-800 bg-opacity-70 w-full h-full"></div>
-                <div className="col-start-1 row-start-1 mx-auto my-auto flex-col flex items-center justify-center flex">
+                <div className="col-start-1 row-start-1 mx-auto my-auto flex-col flex items-center justify-center ">
                     <h1 className="mb-4 text-2xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
                         Trouvez Votre Consultation Rapidement{' '}
                     </h1>
@@ -100,7 +100,7 @@ const Hero = ({ handleSearchSubmit, handleSearchInputChange, suggestions }) => {
                                     >
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                     </svg>
-                                    <span className="sr-only">Search</span>
+                                    <span className="sr-only">Rechercher </span>
                                 </button>
                             </div>
                         </form>

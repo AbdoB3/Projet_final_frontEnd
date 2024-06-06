@@ -19,7 +19,6 @@ export default function Login() {
       const response = await axios.post('http://localhost:3000/patient/login', { email, password });
       const data = response.data;
 
-
       console.log('Login successful');
       localStorage.setItem('token', data.token);
       navigate(redirectTo);
@@ -29,24 +28,23 @@ export default function Login() {
     }
   };
 
-  const handleRegister = async (firstName, lastName, email, password) => {
+  const handleRegister = async (firstName, lastName, sexe, city, email, password, phone) => {
     try {
-      const response = await axios.post('http://localhost:3000/patient/register', { firstName, lastName, email, password });
+      const response = await axios.post('http://localhost:3000/patient/register', { firstName, lastName, sexe, city, email, password, phone });
       const data = response.data;
-      console.log('from register',data._id)
+      console.log('from register',data)
       console.log('Register successful');
       localStorage.setItem('token', data.token);
 
 
   
       // Navigate to the dossier page with the original path as a query parameter
-      window.location.href = `http://localhost:5173/dossier?redirectTo=${encodeURIComponent(redirectTo)}&idPat=${data._id}`;
+      window.location.href = `http://localhost:5173/dossier?redirectTo=${encodeURIComponent(redirectTo)}&idPat=${data.patient._id}`;
     } catch (error) {
       console.error('Register error:', error);
       setError('Registration failed. Please check your details and try again.');
     }
   };
-  
 
   const handleOnClick = (text) => {
     if (text !== type) {
@@ -63,8 +61,7 @@ export default function Login() {
         <div id="container" className={containerClass}>
           <SignUpForm handleRegister={handleRegister} />
           <SignInForm handleLogin={handleLogin} />
-          
-          
+
           <div className="overlay-container">
             <div className="overlay">
               <div className="overlay-panel overlay-left">
