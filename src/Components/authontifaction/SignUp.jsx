@@ -72,7 +72,7 @@ function SignUpForm({ handleRegister }) {
           name="phone"
           value={state.phone}
           onChange={handleChange}
-          placeholder="Phone number"
+          placeholder="Telephone"
           required
         />
         <input
@@ -80,7 +80,7 @@ function SignUpForm({ handleRegister }) {
           name="city"
           value={state.city}
           onChange={handleChange}
-          placeholder="City"
+          placeholder="Ville"
           required
         />
         <input

@@ -142,7 +142,7 @@ const Registre = () => {
           <Form.Item label="Ville" name={['address', 'city']}>
             <Input />
           </Form.Item>
-          <Form.Item label="État" name={['address', 'state']}>
+          <Form.Item label="Avenue" name={['address', 'state']}>
             <Input />
           </Form.Item>
           <Form.Item label="Pays" name={['address', 'country']}>
@@ -172,7 +172,7 @@ const Registre = () => {
             </Upload>
           </Form.Item>
         </div>
-        <Form.Item wrapperCol={{ offset: 20, span: 18 }}>
+        <Form.Item wrapperCol={{ offset: 20 , span: 18 }}>
           <Button type="default" htmlType="button" className="mr-2" onClick={handleCancel}>
             Annuler
           </Button>

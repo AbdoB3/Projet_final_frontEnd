@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import doctorimg from '../assets/doctor-img02.png';
+// import doctorimg from '../assets/doctor-img02.png';
 import AppointmentCalendar from './Calendrier';
 import Footer from './Footer';
 import PatientConsultations from './PatientConsultations'; // Import PatientConsultations component
@@ -43,7 +43,7 @@ const Doctorpage = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             <div className="md:flex-1">
-              <img className="h-96 w-full object-cover rounded-lg" src={doctorimg} alt="Image du médecin" />
+              <img className="h-96 w-full object-cover rounded-lg" src={doctor?.imageUrl} alt="Image du médecin" />
             </div>
             <div className="md:flex-1 mt-5">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">{doctorName}</h2>
