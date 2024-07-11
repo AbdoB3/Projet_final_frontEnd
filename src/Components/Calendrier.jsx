@@ -78,51 +78,51 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
     setMessage(e.target.value);
   };
 
-const handleOk = async () => {
+  const handleOk = async () => {
 
- 
-  if (!selectedDate || !selectedTime) {
-    antdMessage.error('Veuillez sélectionner une date et une heure.');
-    return;
-  }
 
-  const combinedDateTime = moment(selectedDate.format('YYYY-MM-DD') + ' ' + selectedTime, 'YYYY-MM-DD HH:mm');
-
-  const consultationPrice = doctor?.feePer || 0;
-
-  const consultationData = {
-    doctor_id: doctorId,
-    patient_id: patientId,
-    date_consultation: combinedDateTime.toISOString(),
-    time: selectedTime,
-    price: consultationPrice,
-    motif_consultation: symptoms,
-    consultation_type: 'online',
-  };
-  console.log(consultationData)
-
-  try {
-    const response = await axios.post('http://localhost:3000/consultation', consultationData);
- 
-      antdMessage.success('Consultation successfully created.');
-     
-      setOpenModal(false);
-      
-      setConsultationCreated(true);
-      
-  } catch (error) {
-    if (error.response) {
-      console.error('Server responded with error:', error.response.data);
-      antdMessage.error('Failed to create consultation. Please try again.');
-    } else if (error.request) {
-      console.error('No response received:', error.request);
-      antdMessage.error('No response received from server. Please try again later.');
-    } else {
-      console.error('Error setting up request:', error.message);
-      antdMessage.error('An error occurred. Please try again later.');
+    if (!selectedDate || !selectedTime) {
+      antdMessage.error('Veuillez sélectionner une date et une heure.');
+      return;
     }
-  }
-};
+
+    const combinedDateTime = moment(selectedDate.format('YYYY-MM-DD') + ' ' + selectedTime, 'YYYY-MM-DD HH:mm');
+
+    const consultationPrice = doctor?.feePer || 0;
+
+    const consultationData = {
+      doctor_id: doctorId,
+      patient_id: patientId,
+      date_consultation: combinedDateTime.toISOString(),
+      time: selectedTime,
+      price: consultationPrice,
+      motif_consultation: symptoms,
+      consultation_type: 'online',
+    };
+    console.log(consultationData)
+
+    try {
+      const response = await axios.post('http://localhost:3000/consultation', consultationData);
+
+      antdMessage.success('Consultation successfully created.');
+
+      setOpenModal(false);
+
+      setConsultationCreated(true);
+
+    } catch (error) {
+      if (error.response) {
+        console.error('Server responded with error:', error.response.data);
+        antdMessage.error('Failed to create consultation. Please try again.');
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+        antdMessage.error('No response received from server. Please try again later.');
+      } else {
+        console.error('Error setting up request:', error.message);
+        antdMessage.error('An error occurred. Please try again later.');
+      }
+    }
+  };
 
 
   const handleCancel = () => {
@@ -176,7 +176,7 @@ const handleOk = async () => {
 
   return (
     <div>
-          
+
       <Button
         type="primary"
         onClick={showModal}
@@ -184,7 +184,7 @@ const handleOk = async () => {
       >
         Consulter
       </Button>
- 
+
       <Modal
         title="Sélectionnez une date, une heure et ajoutez un message"
         open={openModal}
@@ -224,7 +224,7 @@ const handleOk = async () => {
                   label="Symptômes"
                   rules={[{ required: true, message: 'Veuillez décrire vos symptômes!' }]}
                 >
-                  <Checkbox.Group onChange={handleSymptomsChange}>
+                  {/* <Checkbox.Group onChange={handleSymptomsChange}>
                     <Checkbox value="Cough">Toux</Checkbox>
                     <Checkbox value="Fever">Fièvre</Checkbox>
                     <Checkbox value="Headache">Mal de tête</Checkbox>
@@ -237,7 +237,35 @@ const handleOk = async () => {
                     <Checkbox value="ChestPain">Douleur thoracique</Checkbox>
                     <Checkbox value="DifficultyBreathing">Difficulté à respirer</Checkbox>
                     <Checkbox value="Other">Autre</Checkbox>
+                  </Checkbox.Group> */}
+                  <Checkbox.Group onChange={handleSymptomsChange}>
+                    <Checkbox value="Anxiety">Anxiété excessive</Checkbox>
+                    <Checkbox value="Depression">Dépression</Checkbox>
+                    <Checkbox value="Anger">Colère</Checkbox>
+                    <Checkbox value="Stress">Stress</Checkbox>
+                    <Checkbox value="Fear">Peur</Checkbox>
+                    <Checkbox value="Addiction">Addictions</Checkbox>
+                    <Checkbox value="EatingDisorder">Troubles de l'alimentation</Checkbox>
+                    <Checkbox value="Impulsivity">Comportements impulsifs</Checkbox>
+                    <Checkbox value="SocialIsolation">Isolement social</Checkbox>
+                    <Checkbox value="ConcentrationProblems">Problèmes de concentration</Checkbox>
+                    <Checkbox value="SuicidalThoughts">Pensées suicidaires</Checkbox>
+                    <Checkbox value="Rumination">Ruminations</Checkbox>
+                    <Checkbox value="SleepProblems">Problèmes de sommeil</Checkbox>
+                    <Checkbox value="ChronicFatigue">Fatigue chronique</Checkbox>
+                    <Checkbox value="UnexplainedPain">Douleurs inexpliquées</Checkbox>
+                    <Checkbox value="RelationshipProblems">Difficultés relationnelles</Checkbox>
+                    <Checkbox value="Grief">Deuil</Checkbox>
+                    <Checkbox value="LifeChanges">Changement de vie majeur</Checkbox>
+                    <Checkbox value="MoodDisorder">Troubles de l'humeur</Checkbox>
+                    <Checkbox value="AnxietyDisorder">Troubles anxieux</Checkbox>
+                    <Checkbox value="PersonalityDisorder">Troubles de la personnalité</Checkbox>
+                    <Checkbox value="DevelopmentalDisorder">Troubles du développement</Checkbox>
+                    <Checkbox value="SchoolProblems">Problèmes scolaires</Checkbox>
+                    <Checkbox value="BehavioralIssues">Comportements perturbateurs</Checkbox>
+                    <Checkbox value="Other">Autre</Checkbox>
                   </Checkbox.Group>
+
                 </Form.Item>
                 <Form.Item
                   name="message"

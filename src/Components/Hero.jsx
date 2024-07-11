@@ -81,7 +81,7 @@ const Hero = ({ handleSearchSubmit, handleSearchInputChange, suggestions }) => {
                                     getSuggestionValue={getSuggestionValue}
                                     renderSuggestion={renderSuggestion}
                                     inputProps={{
-                                        placeholder: 'Search for Specialty ...',
+                                        placeholder: 'Chercher un médecin ...',
                                         value: autosuggestValue,
                                         onChange: handleAutosuggestChange,
                                         className: 'w-full block p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border-2 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white'

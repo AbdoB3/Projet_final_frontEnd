@@ -187,13 +187,9 @@ const App = () => {
       <Navbar />
       <div className="text-center p-10">
         <h2 className="font-bold text-3xl mt-5 mb-5">Rencontrez nos médecins</h2>
-        <div className="flex">
-          <div className="mr-10 mt-20">
-            <SpecialiteButtonGroup
-              specialities={specialities}
-              selectedSpeciality={selectedSpeciality}
-              setSelectedSpeciality={setSelectedSpeciality}
-            />
+        <div className="flex ">
+          <div className="mr-10 mt-20 w-48">
+              
             <RadioButtonsGroup
               selectedGender={selectedGender}
               setSelectedGender={setSelectedGender}
