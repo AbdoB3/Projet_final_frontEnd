@@ -39,7 +39,8 @@ const SpecialiteButtonGroup = ({ selectedSpeciality, setSelectedSpeciality, spec
   return (
     <div className="w-full max-w-md mx-auto">
       <div className="bg-gray-100 shadow-md rounded-md p-6">
-        <h3 className="text-lg font-bold mb-4">Spécialité</h3>
+        <h3 className="text-lg font-bold mb-4">Méthodes
+        thérapeutiques</h3>
         <div className="space-y-2">
           {specialities.map((speciality) => (
             <div key={speciality._id} className="mb-2 flex items-start">
@@ -188,8 +189,12 @@ const App = () => {
       <div className="text-center p-10">
         <h2 className="font-bold text-3xl mt-5 mb-5">Rencontrez nos médecins</h2>
         <div className="flex ">
-          <div className="mr-10 mt-20 w-48">
-              
+          <div className="mr-10 mt-20  ">
+          <SpecialiteButtonGroup
+              specialities={specialities}
+              selectedSpeciality={selectedSpeciality}
+              setSelectedSpeciality={setSelectedSpeciality}
+            />
             <RadioButtonsGroup
               selectedGender={selectedGender}
               setSelectedGender={setSelectedGender}

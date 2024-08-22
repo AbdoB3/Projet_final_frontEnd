@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Calendar, Modal, Badge, Button, message as antdMessage, Popconfirm, Form, Checkbox, Input, Space } from 'antd';
+import { Calendar, Modal, Badge, Button, message as antdMessage, Popconfirm, Form, Checkbox, Input, Space, Radio } from 'antd';
 import moment from 'moment';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
@@ -14,6 +14,7 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
   const [selectedTime, setSelectedTime] = useState(null);
   const [appointments, setAppointments] = useState([]);
   const [symptoms, setSymptoms] = useState([]);
+  const [type, setType] = useState("");
   const [confirmationVisible, setConfirmationVisible] = useState(false);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const [deletionVisible, setDeletionVisible] = useState(false);
@@ -77,6 +78,11 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
   const handleMessageChange = (e) => {
     setMessage(e.target.value);
   };
+  const handelTypeChange = (e) => {
+    //console.log(e.target.value);
+    setType(e.target.value);
+  };
+
 
   const handleOk = async () => {
 
@@ -97,7 +103,7 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
       time: selectedTime,
       price: consultationPrice,
       motif_consultation: symptoms,
-      consultation_type: 'online',
+      consultation_type: type,
     };
     console.log(consultationData)
 
@@ -206,7 +212,7 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
           {selectedDate && (
             <>
               <h3>Date: {selectedDate.format('YYYY-MM-DD')}</h3>
-              <h4>Available Time Slots:</h4>
+              <h4>Créneaux horaires disponibles :</h4>
               <div className="flex flex-wrap">
                 {getAvailableTimeSlots().map((slot) => (
                   <button
@@ -219,51 +225,40 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
                 ))}
               </div>
               <Form>
+              <Form.Item
+                  name="tupe"
+                  label="Type"
+                  rules={[{ required: true, message: 'Veuillez choisir le type!' }]}
+                >
+                  <Radio.Group onChange={handelTypeChange}>
+                    <Radio value="online"> En ligne </Radio>
+                    <Radio value="présentiel"> Présentiel </Radio>
+                  </Radio.Group>
+                </Form.Item>
                 <Form.Item
                   name="symptoms"
                   label="Symptômes"
                   rules={[{ required: true, message: 'Veuillez décrire vos symptômes!' }]}
                 >
-                  {/* <Checkbox.Group onChange={handleSymptomsChange}>
-                    <Checkbox value="Cough">Toux</Checkbox>
-                    <Checkbox value="Fever">Fièvre</Checkbox>
-                    <Checkbox value="Headache">Mal de tête</Checkbox>
-                    <Checkbox value="Fatigue">Fatigue</Checkbox>
-                    <Checkbox value="Nausea">Nausée</Checkbox>
-                    <Checkbox value="Vomiting">Vomissements</Checkbox>
-                    <Checkbox value="Diarrhea">Diarrhée</Checkbox>
-                    <Checkbox value="SoreThroat">Mal de gorge</Checkbox>
-                    <Checkbox value="RunnyNose">Nez qui coule</Checkbox>
-                    <Checkbox value="ChestPain">Douleur thoracique</Checkbox>
-                    <Checkbox value="DifficultyBreathing">Difficulté à respirer</Checkbox>
-                    <Checkbox value="Other">Autre</Checkbox>
-                  </Checkbox.Group> */}
                   <Checkbox.Group onChange={handleSymptomsChange}>
-                    <Checkbox value="Anxiety">Anxiété excessive</Checkbox>
-                    <Checkbox value="Depression">Dépression</Checkbox>
-                    <Checkbox value="Anger">Colère</Checkbox>
+                    <Checkbox value="Anxiété">Anxiété excessive</Checkbox>
+                    <Checkbox value="Dépression">Dépression</Checkbox>
+                    <Checkbox value="Colère">Colère</Checkbox>
                     <Checkbox value="Stress">Stress</Checkbox>
-                    <Checkbox value="Fear">Peur</Checkbox>
-                    <Checkbox value="Addiction">Addictions</Checkbox>
-                    <Checkbox value="EatingDisorder">Troubles de l'alimentation</Checkbox>
-                    <Checkbox value="Impulsivity">Comportements impulsifs</Checkbox>
-                    <Checkbox value="SocialIsolation">Isolement social</Checkbox>
-                    <Checkbox value="ConcentrationProblems">Problèmes de concentration</Checkbox>
-                    <Checkbox value="SuicidalThoughts">Pensées suicidaires</Checkbox>
-                    <Checkbox value="Rumination">Ruminations</Checkbox>
-                    <Checkbox value="SleepProblems">Problèmes de sommeil</Checkbox>
-                    <Checkbox value="ChronicFatigue">Fatigue chronique</Checkbox>
-                    <Checkbox value="UnexplainedPain">Douleurs inexpliquées</Checkbox>
-                    <Checkbox value="RelationshipProblems">Difficultés relationnelles</Checkbox>
-                    <Checkbox value="Grief">Deuil</Checkbox>
-                    <Checkbox value="LifeChanges">Changement de vie majeur</Checkbox>
-                    <Checkbox value="MoodDisorder">Troubles de l'humeur</Checkbox>
-                    <Checkbox value="AnxietyDisorder">Troubles anxieux</Checkbox>
-                    <Checkbox value="PersonalityDisorder">Troubles de la personnalité</Checkbox>
-                    <Checkbox value="DevelopmentalDisorder">Troubles du développement</Checkbox>
-                    <Checkbox value="SchoolProblems">Problèmes scolaires</Checkbox>
-                    <Checkbox value="BehavioralIssues">Comportements perturbateurs</Checkbox>
-                    <Checkbox value="Other">Autre</Checkbox>
+                    <Checkbox value="Peur">Peur</Checkbox>
+                    <Checkbox value="Addictions">Addictions</Checkbox>
+                    <Checkbox value="Troubles de l'alimentation">Troubles de l'alimentation</Checkbox>
+                    <Checkbox value="Isolement social">Isolement social</Checkbox>
+                    <Checkbox value="Problèmes de concentration">Problèmes de concentration</Checkbox>
+                    <Checkbox value="Pensées suicidaires">Pensées suicidaires</Checkbox>
+                    <Checkbox value="Problèmes de sommeil">Problèmes de sommeil</Checkbox>
+                    <Checkbox value="Fatigue chronique">Fatigue chronique</Checkbox>
+                    <Checkbox value="Difficultés relationnelles">Difficultés relationnelles</Checkbox>
+                    <Checkbox value="Troubles de l'humeur">Troubles de l'humeur</Checkbox>
+                    <Checkbox value="Troubles de la personnalité">Troubles de la personnalité</Checkbox>
+                    <Checkbox value="Problèmes scolaires">Problèmes scolaires</Checkbox>
+                    <Checkbox value="Comportements perturbateurs">Comportements perturbateurs</Checkbox>
+                    <Checkbox value="Autre">Autre</Checkbox>
                   </Checkbox.Group>
 
                 </Form.Item>
@@ -273,6 +268,16 @@ export const AppointmentCalendar = ({ doctorId, doctor }) => {
                   rules={[{ required: true, message: 'Veuillez ajouter un message!' }]}
                 >
                   <TextArea rows={4} value={message} onChange={handleMessageChange} />
+                </Form.Item>
+                <Form.Item
+                  name="status"
+                  label="Status"
+                  rules={[{ required: true, message: 'Veuillez choisir le status!' }]}
+                >
+                  <Radio.Group >
+                  <Radio value="anonyme"> Anonyme </Radio>
+                    <Radio value="identifiable"> Identifiable </Radio>
+                  </Radio.Group>
                 </Form.Item>
               </Form>
             </>
